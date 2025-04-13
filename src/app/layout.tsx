@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
-import {
-	ClerkProvider,
-	SignInButton,
-	SignUpButton,
-	SignedIn,
-	SignedOut,
-	UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 
 import { ThemeProvider } from "@/components/theme";
 
@@ -33,7 +26,6 @@ export default function RootLayout({
 		<ClerkProvider>
 			<html lang="en">
 				<body className={`${manrope.className} bg-[#171717]`}>
-					<header className="flex justify-end items-center p-4 gap-4 h-16" />
 					<ThemeProvider
 						attribute="class"
 						defaultTheme="system"
