@@ -1,7 +1,8 @@
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, User } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const LandingPageNavbar = () => {
 	return (
@@ -30,7 +31,12 @@ const LandingPageNavbar = () => {
 					Contact
 				</Link>
 			</div>
-			asdas
+			<Link href={"auth/sign-in"}>
+				<Button className="text-base flex gap-x-2 cursor-pointer">
+					<User fill="#000" />
+					Login
+				</Button>
+			</Link>
 		</div>
 	);
 };
