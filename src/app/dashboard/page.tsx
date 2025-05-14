@@ -1,12 +1,12 @@
 import React from "react";
 
-const page = () => {
+const DashboardPage = () => {
 	// Authenticate
 
-	// if user already exists redirect them to right page
+	// if user already exists redirect them to right DashboardPage
 
 	// if user does not exist create account
-	return <div>page</div>;
+	return <div>DashboardPage</div>;
 };
 
-export default page;
+export default DashboardPage;
