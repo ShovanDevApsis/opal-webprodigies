@@ -9,6 +9,8 @@ export const onAuthenticateUser = async () => {
 		if (!user) {
 			return { status: 403 };
 		}
+
+		
 	} catch (error) {
 		console.log(error);
 	}
