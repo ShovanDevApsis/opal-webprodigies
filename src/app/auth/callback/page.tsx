@@ -1,8 +1,11 @@
 import { onAuthenticateUser } from "@/actions/user";
 import { redirect } from "next/navigation";
-import React from "react";
 
-const DashboardPage = async () => {
+type Props = {
+	children: React.ReactNode;
+};
+
+const AuthCallbackPage = async ({ children }: Props) => {
 	// Authenticate
 	const auth = await onAuthenticateUser();
 	if (auth.status === 200 || auth.status === 200) {
@@ -13,7 +16,7 @@ const DashboardPage = async () => {
 		return redirect("/auth/sign-in");
 	}
 
-	return <div>DashboardPage</div>;
+	return <div>{children}</div>;
 };
 
-export default DashboardPage;
+export default AuthCallbackPage;

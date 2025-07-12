@@ -1,10 +1,15 @@
-import { MenuIcon, User } from "lucide-react";
+"use client";
+// I made this Server Component to use useUser  TO DO
+import { MenuIcon, User, LogOut } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useUser } from "@clerk/nextjs";
+import { SignOutButton } from "@clerk/nextjs";
 
 const LandingPageNavbar = () => {
+	const { isSignedIn } = useUser();
 	return (
 		<div className="flex w-[100vw] justify-between items-center h-16">
 			<div className="text-3xl font-semibold flex items-center gap-x-3">
@@ -31,12 +36,24 @@ const LandingPageNavbar = () => {
 					Contact
 				</Link>
 			</div>
-			<Link href={"auth/sign-in"}>
-				<Button className="text-base flex gap-x-2 cursor-pointer">
-					<User fill="#000" />
-					Login
-				</Button>
-			</Link>
+
+			{isSignedIn && (
+				<SignOutButton>
+					<Button className="text-base flex gap-x-2 cursor-pointer">
+						<LogOut fill="#000" />
+						Logout
+					</Button>
+				</SignOutButton>
+			)}
+
+			{!isSignedIn && (
+				<Link href={"auth/sign-in"}>
+					<Button className="text-base flex gap-x-2 cursor-pointer">
+						<User fill="#000" />
+						Login
+					</Button>
+				</Link>
+			)}
 		</div>
 	);
 };

@@ -5,6 +5,7 @@ const isProtectedRoutes = createRouteMatcher([
 	"/auth/sign-up(.*)",
 	"/dashboard(.*)",
 	"api/payment",
+	"/auth/callback",
 	"/payment(.*)",
 ]);
 
