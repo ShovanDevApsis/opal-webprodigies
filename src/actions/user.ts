@@ -41,7 +41,7 @@ export const onAuthenticateUser = async () => {
 				studio: {
 					create: {},
 				},
-				subscription: {
+				subscriptions: {
 					create: {},
 				},
 				workspace: {

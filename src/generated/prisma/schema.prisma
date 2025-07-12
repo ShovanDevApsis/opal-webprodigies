@@ -34,6 +34,8 @@ model User {
   notifications Notification[]
 }
 
+// Enums for the schema
+// These enums are used to define the types of media presets, user types, and subscription plans
 enum Preset {
   HD
   SD

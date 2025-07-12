@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const DashboardPage = async () => {
-	// Authenticate
 	const auth = await onAuthenticateUser();
 	if (auth.status === 200 || auth.status === 200) {
 		return redirect(`/dashboard/${auth.user?.firstName}${auth?.user?.lastName}`);
