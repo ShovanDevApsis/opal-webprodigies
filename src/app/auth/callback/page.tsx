@@ -8,7 +8,7 @@ type Props = {
 const AuthCallbackPage = async ({ children }: Props) => {
 	const auth = await onAuthenticateUser();
 	if (auth.status === 200 || auth.status === 200) {
-		return redirect(`/dashboard/${auth.user?.firstName}${auth?.user?.lastName}`);
+		return redirect(`/dashboard/${auth.user?.workspace[0].id}`);
 	}
 
 	if (auth.status === 400 || auth.status === 500 || auth.status === 404) {
