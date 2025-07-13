@@ -4,7 +4,7 @@ import React from "react";
 
 const DashboardPage = async () => {
 	const auth = await onAuthenticateUser();
-	if (auth.status === 200 || auth.status === 200) {
+	if (auth.status === 200 || auth.status === 201) {
 		return redirect(`/dashboard/${auth.user?.firstName}${auth?.user?.lastName}`);
 	}
 

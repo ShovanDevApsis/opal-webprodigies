@@ -5,12 +5,11 @@ const isProtectedRoutes = createRouteMatcher([
 	"/auth/sign-up(.*)",
 	"/dashboard(.*)",
 	"api/payment",
-	"/auth/callback",
 	"/payment(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
-	if (!isProtectedRoutes(req)) {
+	if (isProtectedRoutes(req)) {
 		await auth.protect();
 	}
 });

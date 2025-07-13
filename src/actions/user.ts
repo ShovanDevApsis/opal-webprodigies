@@ -71,7 +71,7 @@ export const onAuthenticateUser = async () => {
 			return { status: 201, user: newUser };
 		}
 
-		return { satus: 400 };
+		return { status: 200 };
 	} catch (error) {
 		console.log(error);
 		return { status: 500 };
