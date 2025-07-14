@@ -1,5 +1,5 @@
 import { onAuthenticateUser } from "@/actions/user";
-import { getWorkspaceFolders, verifyAccessToWorkspace } from "@/actions/workspace";
+import { getUserVideos, getUserWorkspaces, getWorkspaceFolders, verifyAccessToWorkspace } from "@/actions/workspace";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -38,6 +38,11 @@ const Layout = async ({ params, children }: Props) => {
 	await query.prefetchQuery({
 		queryKey: ["user-videos"],
 		queryFn: () => getUserVideos(params.workspaceId),
+	});
+
+	await query.prefetchQuery({
+		queryKey: ["user-workspaces"],
+		queryFn: () => getUserWorkspaces(),
 	});
 
 	return <div>{children}</div>;

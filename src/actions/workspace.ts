@@ -114,3 +114,46 @@ export const getUserVideos = async (workspaceID: string) => {
 		return { status: 403, data: [] };
 	}
 };
+
+export const getUserWorkspaces = async () => {
+	try {
+		const user = await currentUser();
+		if (!user) return { status: 403 };
+
+		const workspaces = await client.user.findUnique({
+			where: {
+				clerkId: user.id,
+			},
+			select: {
+				subscriptions: {
+					select: {
+						plan: true,
+					},
+				},
+				workspace: {
+					select: {
+						id: true,
+						name: true,
+						type: true,
+					},
+				},
+				members: {
+					select: {
+						Workspace: {
+							select: {
+								id: true,
+								name: true,
+								type: true,
+							},
+						},
+					},
+				},
+			},
+		});
+
+		return workspaces ? { status: 200, data: workspaces } : { status: 403, data: [] };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: [] };
+	}
+};
