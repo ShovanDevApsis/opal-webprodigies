@@ -74,6 +74,37 @@ export const onAuthenticateUser = async () => {
 		return { status: 200 };
 	} catch (error) {
 		console.log(error);
-		return { status: 500 };
+		return { status: 403 };
+	}
+};
+
+export const getUserNotificatons = async () => {
+	try {
+		const user = await currentUser();
+
+		if (!user) {
+			return { status: 403 };
+		}
+
+		const notifications = await client.user.findUnique({
+			where: {
+				clerkId: user.id,
+			},
+			select: {
+				notifications: true,
+				_count: {
+					select: {
+						notifications: true,
+					},
+				},
+			},
+		});
+
+		return notifications
+			? { status: 200, data: notifications }
+			: { status: 403, data: [] };
+	} catch (error) {
+		console.log(error);
+		return { status: 403 };
 	}
 };

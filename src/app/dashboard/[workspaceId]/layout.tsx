@@ -1,9 +1,15 @@
-import { onAuthenticateUser } from "@/actions/user";
-import { getUserVideos, getUserWorkspaces, getWorkspaceFolders, verifyAccessToWorkspace } from "@/actions/workspace";
+import { getUserNotificatons, onAuthenticateUser } from "@/actions/user";
+import {
+	getUserVideos,
+	getUserWorkspaces,
+	getWorkspaceFolders,
+	verifyAccessToWorkspace,
+} from "@/actions/workspace";
 import { redirect } from "next/navigation";
 import React from "react";
 
-import { QueryClient } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import SidebarMain from "@/components/global/sidebar/Sidebar";
 
 type Props = {
 	params: { workspaceId: string };
@@ -21,7 +27,6 @@ const Layout = async ({ params, children }: Props) => {
 
 	// Verify access to the specific workspace
 	const hasAccess = await verifyAccessToWorkspace(params.workspaceId);
-	console.log(hasAccess);
 
 	// Redirect if no access
 	if (hasAccess.status !== 200 || !hasAccess.data) {
@@ -45,7 +50,19 @@ const Layout = async ({ params, children }: Props) => {
 		queryFn: () => getUserWorkspaces(),
 	});
 
-	return <div>{children}</div>;
+	await query.prefetchQuery({
+		queryKey: ["user-notifications"],
+		queryFn: () => getUserNotificatons(),
+	});
+
+	return (
+		<HydrationBoundary state={dehydrate(query)}>
+			<div className="flex h-screen w-screen">
+				<SidebarMain actionWorkspaceId={params.workspaceId} />
+				{children}
+			</div>
+		</HydrationBoundary>
+	);
 };
 
 export default Layout;
