@@ -12,18 +12,25 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
+import { useQueryData } from "@/hooks/useQueryData";
+import { getUserWorkspaces } from "@/actions/workspace";
+import { UserProps } from "@/types/index.types";
 
 type Props = {
 	actionWorkspaceId: string;
 };
 
 const SidebarMain = ({ actionWorkspaceId }: Props) => {
-	const router = useRouter()
+	const router = useRouter();
+
+	const { data } = useQueryData(["user-workspaces"], getUserWorkspaces);
+
+	const { data: user } = data as UserProps;
 
 	const handleChange = (val: string) => {
-	router.push(`/dashboard/${val}`)
+		router.push(`/dashboard/${val}`);
 	};
-	
+
 	return (
 		<div className="bg-[#111111] flex-none relative p-4 h-full w-[240px] flex flex-col gap-4 items-center overflow-hidden">
 			<div className="bg-[#111111] p-4 gap-2 justify-center items-center mb-2 flex">
@@ -39,11 +46,11 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 				</SelectTrigger>
 				<SelectContent>
 					<SelectGroup>
-						<SelectItem value="apple">Apple</SelectItem>
-						<SelectItem value="banana">Banana</SelectItem>
-						<SelectItem value="blueberry">Blueberry</SelectItem>
-						<SelectItem value="grapes">Grapes</SelectItem>
-						<SelectItem value="pineapple">Pineapple</SelectItem>
+						{user?.workspace.map((wSpace) => (
+							<SelectItem value="apple" key={wSpace.id}>
+								{wSpace.name}
+							</SelectItem>
+						))}
 					</SelectGroup>
 				</SelectContent>
 			</Select>
