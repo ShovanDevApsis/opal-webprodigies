@@ -14,8 +14,11 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-	title: "Opal",
+	title: "Video share",
 	description: "Share AI powered video with your friends",
+	icons: {
+    icon: '/metadata.png',
+  },
 };
 
 export default function RootLayout({
