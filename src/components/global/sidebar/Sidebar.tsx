@@ -85,15 +85,20 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 					</SelectGroup>
 				</SelectContent>
 			</Select>
-			<Separator />
+			<Separator className="mb-4" />
 			<Modal
 				title="Add Workspace"
 				trigger={
-					<Tooltip content="Add a new Workspace">
-						<PlusCircle
-							size={30}
-							className="text-gray-400 text-2xl cursor-pointer hover:text-gray-200 transition-colors"
-						/>
+					<Tooltip content="Invite to workspace">
+						<div className="p-1 border group border-neutral-800/90 flex items-center rounded-lg justify-center gap-2 cursor-pointer hover:text-gray-200">
+							<PlusCircle
+								size={30}
+								className="text-neutral-300/90 text-sm cursor-pointer transition-colors group-hover:text-gray-200"
+							/>
+							<span className="text-sm text-neutral-300/90 transition-colors group-hover:text-gray-200">
+								Invite to workspace
+							</span>
+						</div>
 					</Tooltip>
 				}
 				description="Create new workspace"
