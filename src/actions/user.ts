@@ -15,7 +15,6 @@ export const onAuthenticateUser = async () => {
 			where: {
 				clerkId: user.id,
 			},
-
 			include: {
 				workspace: {
 					where: {
@@ -106,5 +105,51 @@ export const getUserNotificatons = async () => {
 	} catch (error) {
 		console.log(error);
 		return { status: 403 };
+	}
+};
+
+export const searchUsers = async (query: string) => {
+	try {
+		const user = await currentUser();
+		if (!user) {
+			return { status: 403 };
+		}
+
+		const users = await client.user.findMany({
+			where: {
+				OR: [
+					{
+						firstName: {
+							contains: query,
+						},
+						lastName: { contains: query },
+						email: { contains: query },
+					},
+				],
+				NOT: [
+					{
+						clerkId: user.id,
+					},
+				],
+			},
+
+			select: {
+				id: true,
+				subscriptions: {
+					select: {
+						plan: true,
+					},
+				},
+				firstName: true,
+				lastName: true,
+				email: true,
+				image: true,
+			},
+		});
+
+		return users ? { status: 200, data: users } : { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
 	}
 };
