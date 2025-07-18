@@ -15,6 +15,10 @@ import { useRouter } from "next/navigation";
 import { useQueryData } from "@/hooks/useQueryData";
 import { getUserWorkspaces } from "@/actions/workspace";
 import { UserProps } from "@/types/index.types";
+import { Separator } from "@radix-ui/react-select";
+import Modal from "../modal";
+import { PlusCircle } from "lucide-react";
+import Tooltip from "@/components/ui/customtooltip";
 
 type Props = {
 	actionWorkspaceId: string;
@@ -41,19 +45,61 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 			</div>
 
 			<Select defaultValue={actionWorkspaceId} onValueChange={handleChange}>
-				<SelectTrigger className="w-[180px]">
+				<SelectTrigger className="w-[180px] bg-transparent outline-none focus:outline-none ring-0 focus:ring-0">
 					<SelectValue placeholder="Select a workspace" />
 				</SelectTrigger>
-				<SelectContent>
+				<SelectContent className="ring-0 border-0 focus-visible:ring-offset-0 focus-visible:ring-0">
 					<SelectGroup>
 						{user?.workspace.map((wSpace) => (
-							<SelectItem value="apple" key={wSpace.id}>
+							<SelectItem
+								value={wSpace.id}
+								key={wSpace.id}
+							>
 								{wSpace.name}
 							</SelectItem>
 						))}
+						{user?.members?.length > 0 && (
+							<div>
+								{user.members.map((member) => (
+									<SelectItem
+										value={
+											member
+												.workspace
+												.id
+										}
+										key={
+											member
+												.workspace
+												.id
+										}
+									>
+										{
+											member
+												.workspace
+												.name
+										}
+									</SelectItem>
+								))}
+							</div>
+						)}
 					</SelectGroup>
 				</SelectContent>
 			</Select>
+			<Separator />
+			<Modal
+				title="Add Workspace"
+				trigger={
+					<Tooltip content="Add a new Workspace">
+						<PlusCircle
+							size={30}
+							className="text-gray-400 text-2xl cursor-pointer hover:text-gray-200 transition-colors"
+						/>
+					</Tooltip>
+				}
+				description="Create new workspace"
+			>
+				<div>Hi</div>
+			</Modal>
 		</div>
 	);
 };
