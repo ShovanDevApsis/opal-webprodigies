@@ -1,6 +1,6 @@
 "use client";
 
-import {  Video } from "lucide-react";
+import { Video } from "lucide-react";
 import React from "react";
 
 import {
@@ -31,6 +31,10 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 	const { data } = useQueryData(["user-workspaces"], getUserWorkspaces);
 
 	const { data: user } = data as UserProps;
+
+	const currentWorkspace = user.workspace.find(
+		(curWorkspace) => curWorkspace.id === actionWorkspaceId
+	);
 
 	const handleChange = (val: string) => {
 		router.push(`/dashboard/${val}`);
@@ -87,25 +91,28 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 				</SelectContent>
 			</Select>
 			<Separator className="mb-4" />
-			<Modal
-				title="Add Workspace"
-				trigger={
-					<Tooltip content="Invite to workspace">
-						<div className="p-1 border group border-neutral-800/90 flex items-center rounded-lg justify-center gap-2 cursor-pointer hover:text-gray-200">
-							<PlusCircle
-								size={30}
-								className="text-neutral-300/90 text-sm cursor-pointer transition-colors group-hover:text-gray-200"
-							/>
-							<span className="text-sm text-neutral-300/90 transition-colors group-hover:text-gray-200">
-								Invite to workspace
-							</span>
-						</div>
-					</Tooltip>
-				}
-				description="Create new workspace"
-			>
-				<Search workspaceId={actionWorkspaceId}/>
-			</Modal>
+			{currentWorkspace?.type === "PUBLIC" &&
+				user.subscriptions?.plan === "PRO" && (
+					<Modal
+						title="Add Workspace"
+						trigger={
+							<Tooltip content="Invite to workspace">
+								<div className="p-1 border group border-neutral-800/90 flex items-center rounded-lg justify-center gap-2 cursor-pointer hover:text-gray-200">
+									<PlusCircle
+										size={30}
+										className="text-neutral-300/90 text-sm cursor-pointer transition-colors group-hover:text-gray-200"
+									/>
+									<span className="text-sm text-neutral-300/90 transition-colors group-hover:text-gray-200">
+										Invite to workspace
+									</span>
+								</div>
+							</Tooltip>
+						}
+						description="Create new workspace"
+					>
+						<Search workspaceId={actionWorkspaceId} />
+					</Modal>
+				)}
 		</div>
 	);
 };
