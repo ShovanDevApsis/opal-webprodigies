@@ -33,12 +33,10 @@ export const useSearch = (key: string, type: "USER") => {
 	}, [query]);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const fetchData = async ({ queryKey }: any) => {
+	const fetchData = async ({ query }: any) => {
 		try {
-			// TO DO querykey might be an array
-			console.log(queryKey);
 			if (type === "USER") {
-				const users = await searchUsers(queryKey);
+				const users = await searchUsers(query[1] as string);
 				if (users.status === 200 && users.data) {
 					const normalizedUsers: UserData[] = users.data.map(
 						(user) => ({
@@ -64,7 +62,7 @@ export const useSearch = (key: string, type: "USER") => {
 		}
 	};
 
-	const { refetch } = useQueryData([key, debounce], fetchData, false);
+	const { refetch, isFetching } = useQueryData([key, debounce], fetchData, false);
 
 	useEffect(() => {
 		if (debounce) refetch();
@@ -74,4 +72,6 @@ export const useSearch = (key: string, type: "USER") => {
 			// cleanup logic if needed
 		};
 	}, [debounce, refetch]);
+
+	return { isFetching, onUsers, onSearchQuery, query };
 };

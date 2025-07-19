@@ -1,11 +1,16 @@
+"use client";
+import { useSearch } from "@/hooks/useSearch";
+
 import React from "react";
 
 type Props = {
-	content: string;
+	workspaceId: string;
 };
 
-const Search = ({ content }: Props) => {
-	return <div>{content}</div>;
+const Search = ({ workspaceId }: Props) => {
+	const {} = useSearch("get-users", "USER");
+
+	return <div>{workspaceId}</div>;
 };
 
 export default Search;

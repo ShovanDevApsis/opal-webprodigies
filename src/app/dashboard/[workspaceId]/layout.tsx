@@ -26,7 +26,7 @@ const Layout = async ({ params, children }: Props) => {
 	}
 
 	// Verify access to the specific workspace
-	const hasAccess = await verifyAccessToWorkspace(params.workspaceId);
+	const hasAccess = await verifyAccessToWorkspace(params?.workspaceId);
 
 	// Redirect if no access
 	if (hasAccess.status !== 200 || !hasAccess.data) {
@@ -37,12 +37,12 @@ const Layout = async ({ params, children }: Props) => {
 
 	await query.prefetchQuery({
 		queryKey: ["workspace-folders"],
-		queryFn: () => getWorkspaceFolders(params.workspaceId),
+		queryFn: () => getWorkspaceFolders(params?.workspaceId),
 	});
 
 	await query.prefetchQuery({
 		queryKey: ["user-videos"],
-		queryFn: () => getUserVideos(params.workspaceId),
+		queryFn: () => getUserVideos(params?.workspaceId),
 	});
 
 	await query.prefetchQuery({
@@ -58,7 +58,7 @@ const Layout = async ({ params, children }: Props) => {
 	return (
 		<HydrationBoundary state={dehydrate(query)}>
 			<div className="flex h-screen w-screen">
-				<SidebarMain actionWorkspaceId={params.workspaceId} />
+				<SidebarMain actionWorkspaceId={params?.workspaceId} />
 				{children}
 			</div>
 		</HydrationBoundary>

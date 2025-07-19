@@ -1,6 +1,6 @@
 "use client";
 
-import { Video } from "lucide-react";
+import {  Video } from "lucide-react";
 import React from "react";
 
 import {
@@ -19,6 +19,7 @@ import { Separator } from "@radix-ui/react-select";
 import Modal from "../modal";
 import { PlusCircle } from "lucide-react";
 import Tooltip from "@/components/ui/customtooltip";
+import Search from "../search";
 
 type Props = {
 	actionWorkspaceId: string;
@@ -103,7 +104,7 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 				}
 				description="Create new workspace"
 			>
-				<div>Hi</div>
+				<Search workspaceId={actionWorkspaceId}/>
 			</Modal>
 		</div>
 	);
