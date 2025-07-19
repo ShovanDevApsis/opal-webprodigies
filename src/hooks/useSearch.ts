@@ -33,10 +33,10 @@ export const useSearch = (key: string, type: "USER") => {
 	}, [query]);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const fetchData = async ({ query }: any) => {
+	const fetchData = async (data: any) => {
 		try {
 			if (type === "USER") {
-				const users = await searchUsers(query[1] as string);
+				const users = await searchUsers(data.queryKey[1] as string);
 				if (users.status === 200 && users.data) {
 					const normalizedUsers: UserData[] = users.data.map(
 						(user) => ({
