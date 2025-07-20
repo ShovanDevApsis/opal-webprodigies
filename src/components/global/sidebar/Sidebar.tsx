@@ -14,7 +14,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useQueryData } from "@/hooks/useQueryData";
 import { getUserWorkspaces } from "@/actions/workspace";
 import { NotificationsProps, UserProps } from "@/types/index.types";
-import { Separator } from "@radix-ui/react-select";
 import Modal from "../modal";
 import Tooltip from "@/components/ui/customtooltip";
 import Search from "../search";
@@ -22,7 +21,10 @@ import { MENU_ITEMS } from "@/constants";
 import SidebarItem from "./sidebar-item";
 import { getUserNotificatons } from "@/actions/user";
 
-import { FolderOpen, Video,PlusCircle } from "lucide-react";
+import { FolderOpen, Video, PlusCircle, Loader } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import GlobalCard from "../global-card";
+import { Button } from "@/components/ui/button";
 
 type Props = {
 	actionWorkspaceId: string;
@@ -43,6 +45,9 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 	const currentWorkspace = user?.workspace?.find(
 		(curWorkspace) => curWorkspace.id === actionWorkspaceId
 	);
+
+	// TO Do
+	// Add Upgrade Button
 
 	const handleChange = (val: string) => {
 		router.push(`/dashboard/${val}`);
@@ -98,7 +103,7 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 					</SelectGroup>
 				</SelectContent>
 			</Select>
-			<Separator className="mb-4" />
+			<Separator className="mb-4 text-white" />
 			{currentWorkspace?.type === "PUBLIC" &&
 				user.subscriptions?.plan === "PRO" && (
 					<Modal
@@ -141,25 +146,64 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 					))}
 				</ul>
 			</nav>
-			<Separator />
+			<Separator className="w-4/5 text-white" />
 			<p className="w-full text-gray-500 font-bold mt-4">Workspaces</p>
+			{user?.workspace?.length === 1 && user.members.length === 0 && (
+				<div className="w-full mt-[-10px]">
+					<p className="text-gray-600 font-medium text-sm">
+						{user?.subscriptions?.plan === "FREE"
+							? "Upgrade to create workspaces"
+							: "No workspaces"}
+					</p>
+				</div>
+			)}
 			<nav className="w-full">
 				<ul className="w-full h-[150px] overflow-auto overflow-x-hidden fade-layer">
 					{user?.workspace.map((workspace) => (
 						<>
-							<SidebarItem
-								title={workspace.name}
-								selected={
-									pathname ===
-									`/dashboard/${workspace.id}`
-								}
-								href={`/dashboard/${workspace.id}`}
-								icon={<FolderOpen />}
-							/>
+							{workspace.type !== "PERSONAL" && (
+								<SidebarItem
+									title={workspace.name}
+									selected={
+										pathname ===
+										`/dashboard/${workspace.id}`
+									}
+									href={`/dashboard/${workspace.id}`}
+									icon={<FolderOpen />}
+								/>
+							)}
 						</>
 					))}
+					{user?.members?.length > 0 &&
+						user.members.map((member) => (
+							<>
+								<SidebarItem
+									title={
+										member.workspace
+											.name
+									}
+									selected={
+										pathname ===
+										`/dashboard/${member.workspace.id}`
+									}
+									href={`/dashboard/${member.workspace.id}`}
+									icon={<FolderOpen />}
+								/>
+							</>
+						))}
 				</ul>
 			</nav>
+			<Separator className="w-4/5" />
+			{user.subscriptions?.plan === "FREE" && (
+				<GlobalCard
+					title="Upgrade to PRO"
+					descripttion="Unlock AI features like transcription, AI summary , and more."
+				>
+					<Button>
+						<Loader>Upgrade</Loader>
+					</Button>
+				</GlobalCard>
+			)}
 		</div>
 	);
 };
