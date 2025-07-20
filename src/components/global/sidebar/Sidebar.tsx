@@ -1,6 +1,5 @@
 "use client";
 
-import { Video } from "lucide-react";
 import React from "react";
 
 import {
@@ -11,15 +10,19 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useQueryData } from "@/hooks/useQueryData";
 import { getUserWorkspaces } from "@/actions/workspace";
-import { UserProps } from "@/types/index.types";
+import { NotificationsProps, UserProps } from "@/types/index.types";
 import { Separator } from "@radix-ui/react-select";
 import Modal from "../modal";
-import { PlusCircle } from "lucide-react";
 import Tooltip from "@/components/ui/customtooltip";
 import Search from "../search";
+import { MENU_ITEMS } from "@/constants";
+import SidebarItem from "./sidebar-item";
+import { getUserNotificatons } from "@/actions/user";
+
+import { FolderOpen, Video,PlusCircle } from "lucide-react";
 
 type Props = {
 	actionWorkspaceId: string;
@@ -27,12 +30,17 @@ type Props = {
 
 const SidebarMain = ({ actionWorkspaceId }: Props) => {
 	const router = useRouter();
+	const pathname = usePathname();
 
 	const { data } = useQueryData(["user-workspaces"], getUserWorkspaces);
 
-	const { data: user } = data as UserProps;
+	const { data: notifications } = useQueryData(["user-notifications"], getUserNotificatons);
 
-	const currentWorkspace = user.workspace.find(
+	const { data: user } = data as UserProps;
+	const { data: notificationCount } = notifications as NotificationsProps;
+
+	const menuItems = MENU_ITEMS(actionWorkspaceId);
+	const currentWorkspace = user?.workspace?.find(
 		(curWorkspace) => curWorkspace.id === actionWorkspaceId
 	);
 
@@ -113,6 +121,45 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 						<Search workspaceId={actionWorkspaceId} />
 					</Modal>
 				)}
+			<p className="w-full text-gray-500 font-bold mt-4">Menu</p>
+			<nav className="w-full">
+				<ul>
+					{menuItems?.map((menu, i) => (
+						<SidebarItem
+							title={menu.title}
+							href={menu.href}
+							icon={menu.icon}
+							selected={pathname === menu.href}
+							key={i}
+							notifications={
+								menu.title === "Notifications"
+									? notificationCount._count
+											.notifications
+									: 0
+							}
+						/>
+					))}
+				</ul>
+			</nav>
+			<Separator />
+			<p className="w-full text-gray-500 font-bold mt-4">Workspaces</p>
+			<nav className="w-full">
+				<ul className="w-full h-[150px] overflow-auto overflow-x-hidden fade-layer">
+					{user?.workspace.map((workspace) => (
+						<>
+							<SidebarItem
+								title={workspace.name}
+								selected={
+									pathname ===
+									`/dashboard/${workspace.id}`
+								}
+								href={`/dashboard/${workspace.id}`}
+								icon={<FolderOpen />}
+							/>
+						</>
+					))}
+				</ul>
+			</nav>
 		</div>
 	);
 };
