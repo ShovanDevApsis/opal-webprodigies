@@ -21,10 +21,20 @@ import { MENU_ITEMS } from "@/constants";
 import SidebarItem from "./sidebar-item";
 import { getUserNotificatons } from "@/actions/user";
 
-import { FolderOpen, Video, PlusCircle, Loader } from "lucide-react";
+import { FolderOpen, Video, PlusCircle, Loader, Menu } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import GlobalCard from "../global-card";
 import { Button } from "@/components/ui/button";
+import {
+	Sheet,
+	SheetClose,
+	SheetContent,
+	SheetDescription,
+	SheetFooter,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet";
 
 type Props = {
 	actionWorkspaceId: string;
@@ -53,7 +63,7 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 		router.push(`/dashboard/${val}`);
 	};
 
-	return (
+	const SidebarContent = (
 		<div className="bg-[#111111] flex-none relative p-4 h-full w-[240px] flex flex-col gap-4 items-center overflow-hidden">
 			<div className="bg-[#111111] p-4 gap-2 justify-center items-center mb-2 flex">
 				<Video />
@@ -199,11 +209,30 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 					title="Upgrade to PRO"
 					descripttion="Unlock AI features like transcription, AI summary , and more."
 				>
-					<Button>
-						<Loader>Upgrade</Loader>
+					<Button className="w-full" variant={'outline'}>
+						<Loader />
+						Upgrade
 					</Button>
 				</GlobalCard>
 			)}
+		</div>
+	);
+
+	return (
+		<div className="w-full">
+			<div className="md:hidden fixed my-4">
+				<Sheet>
+					<SheetTrigger asChild className="ml-2">
+						<Button variant="ghost" className="mt-2">
+							<Menu />
+						</Button>
+					</SheetTrigger>
+					<SheetContent side="left" className="p-0 w-fit h-full">
+						{SidebarContent}
+					</SheetContent>
+				</Sheet>
+			</div>
+			<div className="md:block hidden overflow-x-hidden">{SidebarContent}</div>
 		</div>
 	);
 };

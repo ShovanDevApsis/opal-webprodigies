@@ -21,8 +21,8 @@ function GlobalCard({ title, descripttion, children, footer }: Props) {
 	return (
 		<Card className="w-full max-w-sm bg-transparent mt-4">
 			<CardHeader className="p-4">
-				<CardTitle>{title}</CardTitle>
-				<CardDescription>{descripttion}</CardDescription>
+				<CardTitle className="mb-2">{title}</CardTitle>
+				<CardDescription className="text-xs">{descripttion}</CardDescription>
 				<CardAction></CardAction>
 			</CardHeader>
 			{children && <CardContent>{children}</CardContent>}
