@@ -58,10 +58,10 @@ const Layout = async ({ params, children }: Props) => {
 
 	return (
 		<HydrationBoundary state={dehydrate(query)}>
-			<div className="flex h-screen w-screen p-4">
+			<div className="flex h-screen w-screen">
 				<SidebarMain actionWorkspaceId={params?.workspaceId} />
-				<div className="w-full pt-10  overflow-x-hidden">
-					<GlobalHeader workspace={hasAccess.data}/>
+				<div className="w-full pt-10">
+					<GlobalHeader workspace={hasAccess.data} />
 					<div className="mt-4">{children}</div>
 				</div>
 			</div>

@@ -171,6 +171,7 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 									}
 									href={`/dashboard/${workspace.id}`}
 									icon={<FolderOpen />}
+									key={workspace.name}
 								/>
 							)}
 						</>
@@ -189,6 +190,7 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 									}
 									href={`/dashboard/${member.workspace.id}`}
 									icon={<FolderOpen />}
+									key={member.workspace.name}
 								/>
 							</>
 						))}

@@ -8,7 +8,7 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
 	return (
-		<div className="flex flex-col py-2 xl:px-0 container overflow-x-hidden">
+		<div className="flex flex-col py-2 xl:px-0 container">
 			<LandingPageNavbar />
 			<AuthCallbackPage> {children}</AuthCallbackPage>
 		</div>

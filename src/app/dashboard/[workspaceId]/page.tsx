@@ -15,7 +15,7 @@ function WrokspacePage({ params }: Props) {
 					<TabsTrigger value="archive">Archive</TabsTrigger>
 				</TabsList>
 				<div className="flex gap-x-2">
-					<CreateWorkspace />
+					<CreateWorkspace  />
 				</div>
 				<TabsContent value="video"></TabsContent>
 			</Tabs>
