@@ -10,6 +10,7 @@ import React from "react";
 
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import SidebarMain from "@/components/global/sidebar/Sidebar";
+import GlobalHeader from "@/components/global/global-header";
 
 type Props = {
 	params: { workspaceId: string };
@@ -59,7 +60,10 @@ const Layout = async ({ params, children }: Props) => {
 		<HydrationBoundary state={dehydrate(query)}>
 			<div className="flex h-screen w-screen">
 				<SidebarMain actionWorkspaceId={params?.workspaceId} />
-				{children}
+				<div className="w-full pt-28 overflow-y-scroll overflow-x-hidden">
+					<GlobalHeader workspace={hasAccess.data}/>
+					<div className="mt-4"> {children}</div>
+				</div>
 			</div>
 		</HydrationBoundary>
 	);

@@ -25,16 +25,7 @@ import { FolderOpen, Video, PlusCircle, Loader, Menu } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import GlobalCard from "../global-card";
 import { Button } from "@/components/ui/button";
-import {
-	Sheet,
-	SheetClose,
-	SheetContent,
-	SheetDescription,
-	SheetFooter,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 type Props = {
 	actionWorkspaceId: string;
@@ -209,7 +200,7 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 					title="Upgrade to PRO"
 					descripttion="Unlock AI features like transcription, AI summary , and more."
 				>
-					<Button className="w-full" variant={'outline'}>
+					<Button className="w-full" variant={"outline"}>
 						<Loader />
 						Upgrade
 					</Button>
@@ -219,8 +210,8 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 	);
 
 	return (
-		<div className="w-full">
-			<div className="md:hidden fixed my-4">
+		<div className="w-[240px]">
+			<div className="md:hidden w-[240px] fixed my-4">
 				<Sheet>
 					<SheetTrigger asChild className="ml-2">
 						<Button variant="ghost" className="mt-2">
@@ -232,7 +223,7 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 					</SheetContent>
 				</Sheet>
 			</div>
-			<div className="md:block hidden overflow-x-hidden">{SidebarContent}</div>
+			<div className="md:block hidden w-[240px] overflow-x-hidden">{SidebarContent}</div>
 		</div>
 	);
 };
