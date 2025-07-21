@@ -26,3 +26,29 @@ export type NotificationsProps = {
 		};
 	};
 };
+
+export type UserWorkspaceResponse =
+	| {
+			status: 200;
+			data: {
+				subscriptions: {
+					plan: "PRO" | "FREE";
+				};
+				workspace: {
+					id: string;
+					name: string;
+					type: string;
+				} | null;
+				members: {
+					Workspace: {
+						id: string;
+						name: string;
+						type: string;
+					};
+				}[];
+			};
+	  }
+	| {
+			status: 403;
+			data?: [];
+	  };
