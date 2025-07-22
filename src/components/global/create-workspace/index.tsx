@@ -5,7 +5,10 @@ import { useQueryData } from "@/hooks/useQueryData";
 import React from "react";
 import Modal from "../modal";
 import { Button } from "@/components/ui/button";
+import { FolderPlusIcon } from "lucide-react";
+import WorkspaceForm from "@/components/form/workspace-form";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type Props = {};
 
 function CreateWorkspace({}: Props) {
@@ -18,10 +21,18 @@ function CreateWorkspace({}: Props) {
 		return (
 			<Modal
 				title="Create a Workspace"
-				trigger={<Button variant={"ghost"}>Open</Button>}
+				trigger={
+					<Button
+						variant="outline"
+						className="!bg-white !text-black font-bold rounded-md cursor-pointer hover:!bg-gray-200 transition-colors"
+					>
+						<FolderPlusIcon />
+						Create Workspace
+					</Button>
+				}
 				description="Create to add member and shae video in private"
 			>
-				CreateWorkspace
+				<WorkspaceForm />
 			</Modal>
 		);
 	}
@@ -29,14 +40,19 @@ function CreateWorkspace({}: Props) {
 		return (
 			<Modal
 				title="Create a Workspace"
-				trigger={ 
-					<Button variant={"outline"} className="!bg-white !text-black rounded !hover:bg-gray-100 transition-colors cursor-pointer">
-						Open
+				trigger={
+					<Button
+						variant="outline"
+						className="!bg-white !text-black rounded-full hover:!bg-gray-100 transition-colors"
+					>
+						<FolderPlusIcon />
+						Create Workspace
 					</Button>
 				}
 				description="Create to add member and shae video in private"
 			>
-				CreateWorkspace
+				{/* Input Form */}
+				put form here
 			</Modal>
 		);
 	}

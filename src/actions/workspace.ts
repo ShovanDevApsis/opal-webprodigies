@@ -157,3 +157,46 @@ export const getUserWorkspaces = async () => {
 		return { status: 403, data: [] };
 	}
 };
+
+export const CreateWorkspace = async (name: string) => {
+	try {
+		const user = await currentUser();
+		if (!user) return { status: 403 };
+
+		const isAuthorized = await client.user.findUnique({
+			where: {
+				clerkId: user.id,
+			},
+			select: {
+				subscriptions: {
+					select: {
+						plan: true,
+					},
+				},
+			},
+		});
+
+		if (isAuthorized?.subscriptions?.plan === "PRO") {
+			const create = await client.user.update({
+				where: {
+					clerkId: user.id,
+				},
+				data: {
+					workspace: {
+						create: {
+							name: name,
+							type: "PUBLIC",
+						},
+					},
+				},
+			});
+			if (create) {
+				return { status: 200, data: create };
+			}
+		}
+		return { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
