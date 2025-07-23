@@ -4,7 +4,8 @@ import React from "react";
 type Props = {};
 
 function WorkspaceForm({}: Props) {
-	const {} = useCreateWorkspace();
+	const { isPending, mutate } = useCreateWorkspace();
+
 	return <div>WorkspaceForm</div>;
 }
 

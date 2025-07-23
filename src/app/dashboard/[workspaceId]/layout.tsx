@@ -62,7 +62,7 @@ const Layout = async ({ params, children }: Props) => {
 				<SidebarMain actionWorkspaceId={params?.workspaceId} />
 				<div className="w-full pt-10">
 					<GlobalHeader workspace={hasAccess.data} />
-					<div className="mt-4">{children}</div>
+					<div className="mt-2 px-2">{children}</div>
 				</div>
 			</div>
 		</HydrationBoundary>

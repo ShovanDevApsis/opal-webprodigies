@@ -11,7 +11,7 @@ function GlobalHeader({ workspace }: Props) {
 	const pathname = usePathname().split(`/dashboard/${workspace.id}`)[1];
 
 	return (
-		<article className="flex flex-col gap-2">
+		<article className="flex flex-col gap-2 px-4">
 			<span className="text-gray-600 text-xs">
 				{workspace.type.toLocaleUpperCase()}
 			</span>
