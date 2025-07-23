@@ -19,6 +19,11 @@ function CreateWorkspace({}: Props) {
 
 	if (workspace.subscriptions.plan === "FREE") {
 		return (
+			<></>
+		);
+	}
+	if (workspace.subscriptions.plan === "PRO") {
+		return (
 			<Modal
 				title="Create a Workspace"
 				trigger={
@@ -33,26 +38,6 @@ function CreateWorkspace({}: Props) {
 				description="Create to add member and shae video in private"
 			>
 				<WorkspaceForm />
-			</Modal>
-		);
-	}
-	if (workspace.subscriptions.plan === "PRO") {
-		return (
-			<Modal
-				title="Create a Workspace"
-				trigger={
-					<Button
-						variant="outline"
-						className="!bg-white !text-black rounded-full hover:!bg-gray-100 transition-colors"
-					>
-						<FolderPlusIcon />
-						Create Workspace
-					</Button>
-				}
-				description="Create to add member and shae video in private"
-			>
-				{/* Input Form */}
-				put form here
 			</Modal>
 		);
 	}
