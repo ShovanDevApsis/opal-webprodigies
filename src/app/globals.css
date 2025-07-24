@@ -2,8 +2,36 @@
 @import "tw-animate-css";
 
 body {
-	overflow-x: hidden;
+	overflow-x: hidden !important;
 }
+
+/* globals.css */
+
+/* YouTube-style scrollbar for WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  height: 6px; /* for horizontal scroll */
+  width: 6px;  /* for vertical scroll */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #525252; /* Tailwind's neutral-700 */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #737373; /* Tailwind's neutral-600 */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #525252 transparent;
+}
+
 
 @layer base {
 	:root {
