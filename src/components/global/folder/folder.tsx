@@ -3,8 +3,11 @@
 import { FolderIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useRef, useState } from "react";
 import LoaderItem from "../loader";
+import { useMutationData } from "@/hooks/useMutationData";
+import { RenameFolder } from "@/actions/workspace";
+import { Input } from "@/components/ui/input";
 
 type Props = {
 	name: string;
@@ -17,16 +20,83 @@ function Folder({ name, id, count, optimistic }: Props) {
 	const pathname = usePathname();
 	const router = useRouter();
 
+	const inputRef = useRef<HTMLInputElement | null>(null);
+	const folderCardRef = useRef<HTMLDivElement | null>(null);
+
+	const [onRename, setonRename] = useState<boolean>(false);
+
+	const Rename = () => setonRename(true);
+	const Renamed = () => setonRename(false);
+
+	const { mutate, isPending } = useMutationData(
+		["rename-folder"],
+		async (data: { name: string }) => {
+			RenameFolder(data.name, id);
+		},
+		"workspace-folders",
+		Renamed
+	);
+
+	const handleFolderClick = () => {
+		// router.push(`${pathname}/folder/${id}`)
+		alert("redirect");
+	};
+
+	const handleFolderRename = (e: React.MouseEvent) => {
+		Rename();
+		e.stopPropagation();
+	};
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const updateFolderName = (e: React.FocusEvent<HTMLInputElement>) => {
+		if (inputRef.current && folderCardRef.current) {
+			// if (
+			// 	!inputRef.current.contains(e.target as Node | null) &&
+			// 	!folderCardRef.current.contains(e.target as Node | null)
+			// ) {
+			if (inputRef.current.value) {
+				mutate({ name: inputRef.current.value });
+			}
+			// }
+		}
+	};
 	// TO Do loading states
 
 	return (
 		<div
 			className="min-w-[240px] cursor-pointer bg-gray-900/5 hover:bg-gray-500/20 transition-colors rounded 
         border-[1px] flex py-6 px-4 items-center justify-between"
+			onClick={handleFolderClick}
+			ref={folderCardRef}
 		>
 			<LoaderItem state={false}>
 				<div className="flex flex-col gap-2">
-					<p className="text-sm">{name}</p>
+					{onRename ? (
+						<>
+							<Input
+								ref={inputRef}
+								placeholder={name}
+								className="border-none text-neutral-100 bg-transparent underline h-6 p-2 focus-visible:ring-0 focus-visible:outline-none focus:ring-0 focus:outline-none"
+								onClick={(e) => e.stopPropagation()}
+								autoFocus
+								onBlur={(e) => updateFolderName(e)}
+								disabled={isPending}
+							/>
+						</>
+					) : (
+						<>
+							<p
+								className="text-sm"
+								onDoubleClick={(
+									e: React.MouseEvent
+								) => handleFolderRename(e)}
+								onClick={(e) => e.stopPropagation()}
+							>
+								{name}
+							</p>
+						</>
+					)}
+
 					<p className="text-xs">{count || 0} videos</p>
 				</div>
 			</LoaderItem>

@@ -1,6 +1,6 @@
 "use client";
 // I made this Server Component to use useUser  TO DO
-import { MenuIcon, User, LogOut } from "lucide-react";
+import { MenuIcon, User, LogOut, Video } from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +14,12 @@ const LandingPageNavbar = () => {
 		<div className="flex w-[100vw] justify-between items-center h-16">
 			<div className="text-3xl font-semibold flex items-center gap-x-3">
 				<MenuIcon className="h-6 w-6 cursor-pointer" />
-				<Image src={"/opal-logo.png"} alt={"logo"} width={70} height={70} />
+				<div className="bg-[#111111] p-4 gap-2 justify-center items-center mb-2 flex">
+					<Video />
+					<span className="text-white text-xs truncate">
+						Shovans Video APP
+					</span>
+				</div>
 			</div>
 			<div className="hidden gap-x-10 items-center lg:flex">
 				<Link

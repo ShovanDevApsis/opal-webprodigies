@@ -200,3 +200,28 @@ export const CreateWorkspace = async (name: string) => {
 		return { status: 403, data: undefined };
 	}
 };
+
+export const RenameFolder = async (name: string, folderId: string) => {
+	try {
+		const user = await currentUser();
+		if (!user) return { status: 403 };
+
+		const renamed = await client.folder.update({
+			where: {
+				id: folderId,
+			},
+			data: {
+				name: name,
+			},
+		});
+
+		if (renamed) {
+			return { status: 200, data: renamed };
+		}
+
+		return { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
