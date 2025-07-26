@@ -2,6 +2,8 @@ import { cn } from "@/lib/utils";
 import { ArrowRight, FolderIcon } from "lucide-react";
 import React from "react";
 import Folder from "./folder";
+import { useQueryData } from "@/hooks/useQueryData";
+import { getWorkspaceFolders } from "@/actions/workspace";
 
 type Props = {
 	workspaceId: string;
@@ -9,6 +11,9 @@ type Props = {
 
 function Folders({ workspaceId }: Props) {
 	// Get Folders
+	const { data, isFetched } = useQueryData(["workspace-folders"], () =>
+		getWorkspaceFolders(workspaceId)
+	);
 	//  Optimistic variable => in new data is there from query variable
 	return (
 		<div className="flex flex-col gap-4 px-2">

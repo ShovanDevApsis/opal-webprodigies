@@ -1,3 +1,4 @@
+
 "use client";
 
 import { FolderIcon } from "lucide-react";
@@ -38,8 +39,7 @@ function Folder({ name, id, count, optimistic }: Props) {
 	);
 
 	const handleFolderClick = () => {
-		// router.push(`${pathname}/folder/${id}`)
-		alert("redirect");
+		router.push(`${pathname}/folder/${id}`);
 	};
 
 	const handleFolderRename = (e: React.MouseEvent) => {
@@ -56,8 +56,9 @@ function Folder({ name, id, count, optimistic }: Props) {
 			// ) {
 			if (inputRef.current.value) {
 				mutate({ name: inputRef.current.value });
+			} else {
+				Renamed();
 			}
-			// }
 		}
 	};
 	// TO Do loading states
