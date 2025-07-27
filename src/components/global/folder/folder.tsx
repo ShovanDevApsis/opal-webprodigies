@@ -1,4 +1,3 @@
-
 "use client";
 
 import { FolderIcon } from "lucide-react";
@@ -9,6 +8,7 @@ import LoaderItem from "../loader";
 import { useMutationData } from "@/hooks/useMutationData";
 import { RenameFolder } from "@/actions/workspace";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 type Props = {
 	name: string;
@@ -65,8 +65,10 @@ function Folder({ name, id, count, optimistic }: Props) {
 
 	return (
 		<div
-			className="min-w-[240px] cursor-pointer bg-gray-900/5 hover:bg-gray-500/20 transition-colors rounded 
-        border-[1px] flex py-6 px-4 items-center justify-between"
+			className={cn(
+				optimistic && "opacity-60",
+				"min-w-[240px] cursor-pointer bg-gray-900/5 hover:bg-gray-500/20 transition-colors rounded border-[1px] flex py-6 px-4 items-center justify-between"
+			)}
 			onClick={handleFolderClick}
 			ref={folderCardRef}
 		>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -12,18 +13,18 @@ type Props = {
 	workspaceId: string;
 };
 
-type FolderType = {
-	status: number;
-	data: {
-		_count: {
-			videos: number;
-		};
-	} & {
-		id: string;
-		name: string;
-		workspaceId: string | null;
-		createdAt: Date;
-	};
+export type FolderType = {
+	status: 200 | 403;
+	data:
+		| {
+				id: string;
+				name: string;
+				workspaceId: string;
+				_count: {
+					videos: number;
+				};
+		  }[]
+		| [];
 };
 
 function Folders({ workspaceId }: Props) {
@@ -54,18 +55,44 @@ function Folders({ workspaceId }: Props) {
 			</div>
 			<section
 				className={cn(
+					status !== 200 && "justify-center",
 					"flex items-center gap-4 !overflow-x-auto max-w-[1400px]"
 				)}
 			>
-				{/* <Folder name="Folder Name" id={workspaceId} />
-				<Folder name="Folder Name" id={workspaceId} />
-				<Folder name="Folder Name" id={workspaceId} />
-				<Folder name="Folder Name" id={workspaceId} />
-				<Folder name="Folder Name" id={workspaceId} />
-				<Folder name="Folder Name" id={workspaceId} />
-				<Folder name="Folder Name" id={workspaceId} />
-				<Folder name="Folder Name" id={workspaceId} />
-				<Folder name="Folder Name" id={workspaceId} /> */}
+				{status !== 200 ? (
+					<p className="text-neutral-300">No folders in workspace</p>
+				) : (
+					<>
+						{latestVariable?.status === "pending" ? (
+							<Folder
+								name={latestVariable.variable.name}
+								id={latestVariable.variable.id}
+                                optimistic
+							/>
+						) : (
+							<>
+								{folders.map((folder: any) => (
+									<>
+										<Folder
+											name={
+												folder.name
+											}
+											id={
+												folder.id
+											}
+											count={
+												folder._count
+											}
+											key={
+												folder.id
+											}
+										/>
+									</>
+								))}
+							</>
+						)}
+					</>
+				)}
 			</section>
 		</div>
 	);

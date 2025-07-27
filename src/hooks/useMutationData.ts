@@ -38,7 +38,7 @@ export const useMutationStateData = (mutationKey: MutationKey) => {
 		filters: { mutationKey },
 		select: (mutation) => {
 			return {
-				variable: mutation.state.variables,
+				variable: mutation.state.variables as {name: string, id: string},
 				status: mutation.state.status,
 			};
 		},
