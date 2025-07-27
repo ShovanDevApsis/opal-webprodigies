@@ -1,12 +1,29 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { ArrowRight, FolderIcon } from "lucide-react";
 import React from "react";
 import Folder from "./folder";
 import { useQueryData } from "@/hooks/useQueryData";
 import { getWorkspaceFolders } from "@/actions/workspace";
+import { useMutationStateData } from "@/hooks/useMutationData";
 
 type Props = {
 	workspaceId: string;
+};
+
+type FolderType = {
+	status: number;
+	data: {
+		_count: {
+			videos: number;
+		};
+	} & {
+		id: string;
+		name: string;
+		workspaceId: string | null;
+		createdAt: Date;
+	};
 };
 
 function Folders({ workspaceId }: Props) {
@@ -15,6 +32,14 @@ function Folders({ workspaceId }: Props) {
 		getWorkspaceFolders(workspaceId)
 	);
 	//  Optimistic variable => in new data is there from query variable
+	const { latestVariable } = useMutationStateData(["create-folder"]);
+
+	const { status, data: folders } = data as FolderType;
+
+	if (isFetched && folders) {
+		// Redux call
+	}
+
 	return (
 		<div className="flex flex-col gap-4 px-2">
 			<div className="flex items-centerronded w-full justify-between">
@@ -32,6 +57,7 @@ function Folders({ workspaceId }: Props) {
 					"flex items-center gap-4 !overflow-x-auto max-w-[1400px]"
 				)}
 			>
+				{/* <Folder name="Folder Name" id={workspaceId} />
 				<Folder name="Folder Name" id={workspaceId} />
 				<Folder name="Folder Name" id={workspaceId} />
 				<Folder name="Folder Name" id={workspaceId} />
@@ -39,8 +65,7 @@ function Folders({ workspaceId }: Props) {
 				<Folder name="Folder Name" id={workspaceId} />
 				<Folder name="Folder Name" id={workspaceId} />
 				<Folder name="Folder Name" id={workspaceId} />
-				<Folder name="Folder Name" id={workspaceId} />
-				<Folder name="Folder Name" id={workspaceId} />
+				<Folder name="Folder Name" id={workspaceId} /> */}
 			</section>
 		</div>
 	);

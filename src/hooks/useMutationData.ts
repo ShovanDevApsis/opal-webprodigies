@@ -1,4 +1,10 @@
-import { MutationFunction, MutationKey, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+	MutationFunction,
+	MutationKey,
+	useMutation,
+	useMutationState,
+	useQueryClient,
+} from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export const useMutationData = (
@@ -25,4 +31,20 @@ export const useMutationData = (
 	});
 
 	return { mutate, isPending };
+};
+
+export const useMutationStateData = (mutationKey: MutationKey) => {
+	const data = useMutationState({
+		filters: { mutationKey },
+		select: (mutation) => {
+			return {
+				variable: mutation.state.variables,
+				status: mutation.state.status,
+			};
+		},
+	});
+
+	const latestVariable = data[data.length - 1];
+
+	return { latestVariable };
 };
