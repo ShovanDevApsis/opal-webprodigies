@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import LoaderItem from "../loader";
-import { useMutationData } from "@/hooks/useMutationData";
+import { useMutationData, useMutationStateData } from "@/hooks/useMutationData";
 import { RenameFolder } from "@/actions/workspace";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -37,6 +37,8 @@ function Folder({ name, id, count, optimistic }: Props) {
 		"workspace-folders",
 		Renamed
 	);
+
+	const { latestVariable } = useMutationStateData(["rename-folder"]);
 
 	const handleFolderClick = () => {
 		router.push(`${pathname}/folder/${id}`);
@@ -88,15 +90,27 @@ function Folder({ name, id, count, optimistic }: Props) {
 						</>
 					) : (
 						<>
-							<p
-								className="text-sm"
-								onDoubleClick={(
-									e: React.MouseEvent
-								) => handleFolderRename(e)}
-								onClick={(e) => e.stopPropagation()}
-							>
-								{name}
-							</p>
+							{latestVariable && latestVariable?.status === "pending" ? (
+								<p className="text-sm">
+									{
+										latestVariable
+											.variable
+											.name
+									}
+								</p>
+							) : (
+								<p
+									className="text-sm"
+									onDoubleClick={(
+										e: React.MouseEvent
+									) => handleFolderRename(e)}
+									onClick={(e) =>
+										e.stopPropagation()
+									}
+								>
+									{name}
+								</p>
+							)}
 						</>
 					)}
 

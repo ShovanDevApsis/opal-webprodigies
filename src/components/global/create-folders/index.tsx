@@ -18,7 +18,7 @@ function CreateFolders({ workspaceId }: Props) {
 			onClick={onCreateFolder}
 		>
 			{isPending ? (
-				<LoaderIcon />
+				<LoaderIcon className='animate-spin'/>
 			) : (
 				<>
 					<FolderIcon />
