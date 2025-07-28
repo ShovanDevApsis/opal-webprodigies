@@ -8,6 +8,7 @@ import Folder from "./folder";
 import { useQueryData } from "@/hooks/useQueryData";
 import { getWorkspaceFolders } from "@/actions/workspace";
 import { useMutationStateData } from "@/hooks/useMutationData";
+import { Button } from "@/components/ui/button";
 
 type Props = {
 	workspaceId: string;
@@ -48,10 +49,10 @@ function Folders({ workspaceId }: Props) {
 					<FolderIcon />
 					<h2 className="text-gray-300 text-xl">Folders</h2>
 				</div>
-				<div className="flex items-center gap-2 cursor-pointer p-2 hover:bg-gray-700 transition-colors">
-					<p className="text-gray-300">See More</p>
+				<Button className="flex items-center gap-2 cursor-pointer rounded bg-white text-black p-2 font-bold hover:bg-gray-200 transition-colors">
+					See More
 					<ArrowRight />
-				</div>
+				</Button>
 			</div>
 			<section
 				className={cn(
@@ -67,7 +68,7 @@ function Folders({ workspaceId }: Props) {
 							<Folder
 								name={latestVariable.variable.name}
 								id={latestVariable.variable.id}
-                                optimistic
+								optimistic
 							/>
 						) : (
 							<>
@@ -81,7 +82,7 @@ function Folders({ workspaceId }: Props) {
 												folder.id
 											}
 											count={
-												folder._count
+												folder._count.videos
 											}
 											key={
 												folder.id

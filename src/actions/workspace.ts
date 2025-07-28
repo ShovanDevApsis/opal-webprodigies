@@ -225,3 +225,30 @@ export const RenameFolder = async (name: string, folderId: string) => {
 		return { status: 403, data: undefined };
 	}
 };
+
+export const CreateFolders = async (workspaceId: string) => {
+	try {
+		const user = await currentUser();
+		if (!user) return { status: 403 };
+
+		const newFolders = await client.workspace.update({
+			where: {
+				id: workspaceId,
+			},
+			data: {
+				folders: {
+					create: { name: "Untitled" },
+				},
+			},
+		});
+
+		if (newFolders) {
+			return { status: 200, data: newFolders };
+		}
+
+		return { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};

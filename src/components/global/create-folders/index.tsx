@@ -1,5 +1,7 @@
+"use client";
 import { Button } from "@/components/ui/button";
-import { FolderIcon } from "lucide-react";
+import { useCreateFolder } from "@/hooks/useCreateFolder";
+import { FolderIcon, LoaderIcon } from "lucide-react";
 import React from "react";
 
 type Props = {
@@ -7,11 +9,22 @@ type Props = {
 };
 
 function CreateFolders({ workspaceId }: Props) {
-	
+	const { onCreateFolder, isPending } = useCreateFolder(workspaceId);
+
 	return (
-		<Button className="cursor-pointer bg-white rounded hover:bg-neutral-300 transition-colors text-black font-bold px-2 py-1">
-			<FolderIcon />
-			Create Folder
+		<Button
+			disabled={isPending}
+			className="cursor-pointer bg-white rounded hover:bg-neutral-300 transition-colors text-black font-bold px-2 py-1"
+			onClick={onCreateFolder}
+		>
+			{isPending ? (
+				<LoaderIcon />
+			) : (
+				<>
+					<FolderIcon />
+					Create Folder
+				</>
+			)}
 		</Button>
 	);
 }
