@@ -252,3 +252,33 @@ export const CreateFolders = async (workspaceId: string) => {
 		return { status: 403, data: undefined };
 	}
 };
+
+export const getFolderInfo = async (folderId: string) => {
+	try {
+		const user = await currentUser();
+		if (!user) return { status: 403 };
+
+		const folderInfo = await client.folder.findUnique({
+			where: {
+				id: folderId,
+			},
+			select: {
+				name: true,
+				_count: {
+					select: {
+						videos: true,
+					},
+				},
+			},
+		});
+
+		if (folderInfo) {
+			return { status: 200, data: folderInfo };
+		}
+
+		return { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};

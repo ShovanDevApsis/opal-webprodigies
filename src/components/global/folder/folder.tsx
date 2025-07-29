@@ -57,7 +57,7 @@ function Folder({ name, id, count, optimistic }: Props) {
 			// 	!folderCardRef.current.contains(e.target as Node | null)
 			// ) {
 			if (inputRef.current.value) {
-				mutate({ name: inputRef.current.value });
+				mutate({ name: inputRef.current.value, id });
 			} else {
 				Renamed();
 			}
@@ -90,7 +90,7 @@ function Folder({ name, id, count, optimistic }: Props) {
 						</>
 					) : (
 						<>
-							{latestVariable && latestVariable?.status === "pending" ? (
+							{latestVariable && latestVariable?.status === "pending" && latestVariable?.variable?.id === id ? (
 								<p className="text-sm">
 									{
 										latestVariable
