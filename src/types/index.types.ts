@@ -52,3 +52,34 @@ export type UserWorkspaceResponse =
 			status: 403;
 			data?: [];
 	  };
+
+export type FolderTypeSingle = {
+	data: {
+		id: string;
+		name: string;
+		workspaceId: string;
+		_count: {
+			videos: number;
+		};
+	};
+};
+
+export type VideosResponse = {
+	status: number;
+	data: {
+		id: string;
+		title: string;
+		source: string;
+		createdAt: Date;
+		proccessing: boolean;
+		Folder: {
+			name: string;
+			id: string;
+		} | null;
+		User: {
+			firstName: string;
+			lastName: string;
+			image: string;
+		} | null;
+	}[];
+};
