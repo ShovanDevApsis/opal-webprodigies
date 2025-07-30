@@ -1,7 +1,7 @@
 import { CreateWorkspace } from "@/actions/workspace";
 import { useMutationData } from "./useMutationData";
 import { useZodForm } from "./useZodForm";
-import { workspaceSchema } from "@/components/form/schema";
+import { workspaceSchema } from "@/components/form/workspace-form/schema";
 
 export const useCreateWorkspace = () => {
 	const { isPending, mutate } = useMutationData(
