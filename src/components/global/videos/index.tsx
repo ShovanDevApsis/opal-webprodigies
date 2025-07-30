@@ -1,3 +1,4 @@
+"use client";
 import { getUserVideos } from "@/actions/workspace";
 import { useQueryData } from "@/hooks/useQueryData";
 import { cn } from "@/lib/utils";
@@ -19,6 +20,25 @@ function Videos({ folderId, workspaceId, videoKey }: Props) {
 	});
 
 	const { status, data: videos } = data as VideosResponse;
+	const dummy = [
+		{
+			User: {
+				firstname: "John",
+				lastname: "Doe",
+				image: "https://example.com/image.jpg",
+			},
+			id: "12345",
+			Folder: {
+				id: "folder1",
+				name: "Documents",
+			},
+			createdAt: "2025-07-29T16:11:00Z",
+			title: "Sample Document",
+			source: "upload",
+			processing: false,
+			workspaceId: "ws123",
+		},
+	];
 
 	return (
 		<div className="flex flex-col gap-4 mt-4">
@@ -37,8 +57,20 @@ function Videos({ folderId, workspaceId, videoKey }: Props) {
 			>
 				{status === 200 ? (
 					<>
-						{videos.map((video) => (
-							<VideoCard key={video.id} />
+						{dummy.map((video) => (
+							<VideoCard
+								key={video.id}
+								Folder={video.Folder}
+								User={video.User}
+								createdAt={
+									new Date(video.createdAt)
+								}
+								id={video.id}
+								processing={video.processing}
+								workspaceId={video.workspaceId}
+								source={video.source}
+								title={video.title}
+							/>
 						))}
 					</>
 				) : (
