@@ -2,6 +2,7 @@
 import React from "react";
 import Modal from "../modal";
 import { Move } from "lucide-react";
+import ChangeVideoLocation from "@/components/form/change-video-locaion";
 
 type Props = {
 	videoId: string;
@@ -18,7 +19,12 @@ function CardMenu({ videoId, currentFolder, currentFolderName, currentWorkspace 
 			description="Input form for moving this video to a new workspace or a new folder"
 			trigger={<Move className="text-gray-400" />}
 		>
-			<form action="">form element</form>
+			<ChangeVideoLocation
+				videoId={videoId}
+				currentFolder={currentFolder}
+				currentFolderName={currentFolderName}
+				currentWorkspace={currentWorkspace}
+			/>
 		</Modal>
 	);
 }
