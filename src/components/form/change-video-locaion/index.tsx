@@ -22,7 +22,7 @@ function ChangeVideoLocation({
 				<h2 className="text-neutral-300 text-2xl">{currentFolderName}</h2>
 			</div>
 			<span className="text-xl text-neutral-300">Move Folder To:</span>
-			<select name="" id="">
+			<select name="" id="" className="bg-transparent rounded-xl text-base">
 				<option value="workspace">workspace</option>
 			</select>
 		</form>
