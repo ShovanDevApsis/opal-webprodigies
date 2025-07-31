@@ -282,3 +282,29 @@ export const getFolderInfo = async (folderId: string) => {
 		return { status: 403, data: undefined };
 	}
 };
+
+export const MoveVideoLocation = async (folderId: string, videoId: string, workspaceId: string) => {
+	try {
+		const user = await currentUser();
+		if (!user) return { status: 403 };
+
+		const video = await client.video.update({
+			where: {
+				id: videoId,
+			},
+			data: {
+				folderId: folderId || null,
+				workspaceId: workspaceId,
+			},
+		});
+
+		if (video) {
+			return { status: 200, data: video };
+		}
+
+		return { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
