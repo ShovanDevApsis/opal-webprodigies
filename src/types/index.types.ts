@@ -67,6 +67,7 @@ export type FolderTypeSingle = {
 export type VideosResponse = {
 	status: number;
 	data: {
+		[x: string]: boolean;
 		id: string;
 		title: string;
 		source: string;

@@ -21,25 +21,6 @@ function Videos({ folderId, workspaceId, videoKey }: Props) {
 	});
 
 	const { status, data: videos } = data as VideosResponse;
-	const dummy = [
-		{
-			User: {
-				firstname: "John",
-				lastname: "Doe",
-				image: "https://example.com/image.jpg",
-			},
-			id: "12345",
-			Folder: {
-				id: "folder1",
-				name: "Documents",
-			},
-			createdAt: "2025-07-29T16:11:00Z",
-			title: "Sample Document",
-			source: "upload",
-			processing: false,
-			workspaceId: "ws123",
-		},
-	];
 
 	return (
 		<div className="flex flex-col gap-4 mt-4">
@@ -58,7 +39,7 @@ function Videos({ folderId, workspaceId, videoKey }: Props) {
 			>
 				{status === 200 ? (
 					<>
-						{dummy.map((video) => (
+						{videos.map((video) => (
 							<VideoCard
 								key={video.id}
 								Folder={video.Folder}
@@ -68,7 +49,7 @@ function Videos({ folderId, workspaceId, videoKey }: Props) {
 								}
 								id={video.id}
 								processing={video.processing}
-								workspaceId={video.workspaceId}
+								workspaceId={workspaceId}
 								source={video.source}
 								title={video.title}
 							/>

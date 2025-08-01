@@ -9,8 +9,8 @@ import CardMenu from "./card-menu";
 
 type Props = {
 	User: {
-		firstname: string | null;
-		lastname: string | null;
+		firstName: string | null;
+		lastName: string | null;
 		image: string | null;
 	} | null;
 	id: string;
@@ -25,10 +25,28 @@ type Props = {
 	workspaceId: string;
 };
 
+const getTimeAgo = (createdAt: string | Date): string => {
+	const now = new Date();
+	const past = new Date(createdAt);
+	const diff = now.getTime() - past.getTime();
+
+	const minutes = Math.floor(diff / (1000 * 60));
+	const hours = Math.floor(diff / (1000 * 60 * 60));
+	const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+	if (days > 0) return `${days} day(s) ago`;
+	if (hours > 0) return `${hours} hour(s) ago`;
+	if (minutes > 0) return `${minutes} minute(s) ago`;
+
+	return "just now";
+};
+
 function VideoCard(props: Props) {
+	const dayAgo = getTimeAgo(props.createdAt);
+
 	return (
-		<Card className="w-full max-w-sm !p-0 bg-gray-900/10 h-[350px]  border-gray-700 overflow-hidden">
-			<Loader state={false}>
+		<Card className="w-full max-w-sm !p-0 bg-gray-900/10 h-[380px]  border-gray-700 overflow-hidden">
+			<Loader state={props.processing}>
 				{/* Top section with white background */}
 				<div className="bg-gray-800/20 h-[150px]"></div>
 				<div className="flex items-center justify-between p-2">
@@ -43,7 +61,7 @@ function VideoCard(props: Props) {
 					</div>
 
 					<Badge className=" bg-gray-800 text-white hover:bg-gray-800">
-						120 min
+						120 min To Do
 					</Badge>
 				</div>
 
@@ -66,10 +84,10 @@ function VideoCard(props: Props) {
 						</Avatar>
 						<div className="flex-1">
 							<p className="text-white font-medium text-sm">
-								{`${props.User?.firstname} ${props.User?.lastname}`}
+								{`${props.User?.firstName} ${props.User?.lastName}`}
 							</p>
 							<p className="text-gray-400 text-xs">
-								1 day ago
+								{dayAgo}
 							</p>
 						</div>
 					</div>
@@ -79,17 +97,17 @@ function VideoCard(props: Props) {
 						<div className="flex items-center space-x-1">
 							<Share2 className="w-3 h-3 " />
 							<span>
-								{props.User?.firstname} Workplace
+								{props.User?.firstName} Workplace
 							</span>
 						</div>
 						<div className="flex items-center space-x-2">
 							<div className="flex gap-1 items-center">
 								<Circle className="h-3 w-3" />
-								<span>2</span>
+								<span>2 </span>
 							</div>
 							<div className="flex gap-1 items-center">
 								<Eye className="h-3 w-3" />
-								<span>2</span>
+								<span>2 </span>
 							</div>
 							<span>{props.processing}</span>
 						</div>

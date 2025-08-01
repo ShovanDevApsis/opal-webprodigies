@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { useMoveVideos } from "@/hooks/useFolders";
-import { Folder } from "lucide-react";
+import { Box, Folder } from "lucide-react";
 import React from "react";
 
 type Props = {
@@ -29,11 +29,20 @@ function ChangeVideoLocation({
 		workspaces,
 	} = useMoveVideos(videoId, currentWorkspace as string);
 
+	const folderInfo = folders.find((f) => f.id === currentFolder);
+	const workspaceInfo = workspaces.find((f) => f.id === currentWorkspace);
+
 	return (
 		<form className="flex flex-col gap-y-5">
 			<div className="flex items-center gap-2">
+				<Box />
+				<h2 className="text-neutral-300 text-2xl">
+					{workspaceInfo && workspaceInfo.name} Workspace
+				</h2>
+			</div>
+			<div className="flex items-center gap-2">
 				<Folder />
-				<h2 className="text-neutral-300 text-2xl">Current Folder:- {currentFolderName}</h2>
+				<h2 className="text-neutral-300 text-2xl"> {currentFolderName}</h2>
 			</div>
 			<span className="text-xl text-neutral-300">Move Folder To:</span>
 			<select name="" id="" className="bg-transparent rounded-xl text-base">
