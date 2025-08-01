@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { getUserVideos } from "@/actions/workspace";
 import { useQueryData } from "@/hooks/useQueryData";

@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme";
 
 import "./globals.css";
 import ReactQueryProvider from "@/react-query";
+import ReduxProvider from "@/redux/provider";
 
 const manrope = Manrope({
 	weight: ["200", "300", "400", "500", "600", "700", "800"],
@@ -17,8 +18,8 @@ export const metadata: Metadata = {
 	title: "Video share",
 	description: "Share AI powered video with your friends",
 	icons: {
-    icon: '/metadata.png',
-  },
+		icon: "/metadata.png",
+	},
 };
 
 export default function RootLayout({
@@ -36,7 +37,11 @@ export default function RootLayout({
 						enableSystem
 						disableTransitionOnChange
 					>
-						<ReactQueryProvider>{children}</ReactQueryProvider>
+						<ReduxProvider>
+							<ReactQueryProvider>
+								{children}
+							</ReactQueryProvider>
+						</ReduxProvider>
 					</ThemeProvider>
 				</body>
 			</html>
