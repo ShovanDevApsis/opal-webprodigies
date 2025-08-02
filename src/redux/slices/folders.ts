@@ -8,7 +8,7 @@ type initialStateProps = {
 	} & {
 		id: string;
 		name: string;
-		createdAt: Date;
+		createdAt?: Date;
 		workspaceId: string;
 	})[];
 };

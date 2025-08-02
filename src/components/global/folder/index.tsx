@@ -9,6 +9,8 @@ import { useQueryData } from "@/hooks/useQueryData";
 import { getWorkspaceFolders } from "@/actions/workspace";
 import { useMutationStateData } from "@/hooks/useMutationData";
 import { Button } from "@/components/ui/button";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import { FOLDERS } from "@/redux/slices/folders";
 
 type Props = {
 	workspaceId: string;
@@ -29,6 +31,7 @@ export type FolderType = {
 };
 
 function Folders({ workspaceId }: Props) {
+	const dispatch = useAppDispatch();
 	// Get Folders
 	const { data, isFetched } = useQueryData(["workspace-folders"], () =>
 		getWorkspaceFolders(workspaceId)
@@ -39,7 +42,7 @@ function Folders({ workspaceId }: Props) {
 	const { status, data: folders } = data as FolderType;
 
 	if (isFetched && folders) {
-		// Redux call
+		dispatch(FOLDERS({ folders: folders }));
 	}
 
 	return (
@@ -82,7 +85,9 @@ function Folders({ workspaceId }: Props) {
 												folder.id
 											}
 											count={
-												folder._count.videos
+												folder
+													._count
+													.videos
 											}
 											key={
 												folder.id

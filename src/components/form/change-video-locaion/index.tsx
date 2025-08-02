@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { useMoveVideos } from "@/hooks/useFolders";
@@ -46,7 +47,7 @@ function ChangeVideoLocation({
 			</div>
 			<span className="text-xl text-neutral-300">Move Folder To:</span>
 			<select name="" id="" className="bg-transparent rounded-xl text-base">
-				{workspaces.map((cur) => (
+				{workspaces.map((cur: any) => (
 					<option key={cur.id} value={cur.id}>
 						{cur.name}
 					</option>

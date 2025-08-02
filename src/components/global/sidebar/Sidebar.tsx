@@ -26,6 +26,8 @@ import { Separator } from "@/components/ui/separator";
 import GlobalCard from "../global-card";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import { WORKSPACES } from "@/redux/slices/workspaces";
 
 type Props = {
 	actionWorkspaceId: string;
@@ -34,6 +36,7 @@ type Props = {
 const SidebarMain = ({ actionWorkspaceId }: Props) => {
 	const router = useRouter();
 	const pathname = usePathname();
+	const dispatch = useAppDispatch();
 
 	const { data } = useQueryData(["user-workspaces"], getUserWorkspaces);
 
@@ -46,6 +49,11 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 	const currentWorkspace = user?.workspace?.find(
 		(curWorkspace) => curWorkspace.id === actionWorkspaceId
 	);
+
+	if (data) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// dispatch(WORKSPACES({ workspaces: data as any }));
+	}
 
 	// TO Do
 	// Add Upgrade Button
@@ -225,7 +233,9 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 					</SheetContent>
 				</Sheet>
 			</div>
-			<div className="md:block hidden w-[240px] overflow-x-hidden">{SidebarContent}</div>
+			<div className="md:block hidden w-[240px] overflow-x-hidden">
+				{SidebarContent}
+			</div>
 		</div>
 	);
 };
