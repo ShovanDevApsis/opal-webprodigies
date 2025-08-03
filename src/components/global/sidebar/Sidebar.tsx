@@ -50,9 +50,8 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 		(curWorkspace) => curWorkspace.id === actionWorkspaceId
 	);
 
-	if (data) {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		// dispatch(WORKSPACES({ workspaces: data as any }));
+	if (user?.workspace.length > 0) {
+		dispatch(WORKSPACES({ workspaces: user?.workspace }));
 	}
 
 	// TO Do

@@ -3,9 +3,10 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Gamepad, User, Share2, Circle, Eye } from "lucide-react";
+import { User, Share2, Circle, Eye } from "lucide-react";
 import Loader from "../loader";
 import CardMenu from "./card-menu";
+import CopyToClipBoard from "./copy-clipboard";
 
 type Props = {
 	User: {
@@ -51,7 +52,7 @@ function VideoCard(props: Props) {
 				<div className="bg-gray-800/20 h-[150px]"></div>
 				<div className="flex items-center justify-between p-2">
 					<div className="flex items-center gap-1">
-						<Gamepad className="cursor-pointer text-gray-400" />
+						<CopyToClipBoard />
 						<CardMenu
 							videoId={props.id}
 							currentFolder={props.Folder?.id}
