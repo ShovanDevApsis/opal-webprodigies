@@ -74,7 +74,7 @@ customerId String? @unique
 model Workspace {
 id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 name String
-userID String @db.Uuid @unique
+userID String @db.Uuid 
 User User @relation(fields: [userID], references: [id])
 type Type
 videos Video[]

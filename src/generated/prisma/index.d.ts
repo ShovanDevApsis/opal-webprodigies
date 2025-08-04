@@ -12551,18 +12551,18 @@ export namespace Prisma {
 
   export type WorkspaceWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userID?: string
     AND?: WorkspaceWhereInput | WorkspaceWhereInput[]
     OR?: WorkspaceWhereInput[]
     NOT?: WorkspaceWhereInput | WorkspaceWhereInput[]
     name?: StringFilter<"Workspace"> | string
+    userID?: UuidFilter<"Workspace"> | string
     type?: EnumTypeFilter<"Workspace"> | $Enums.Type
     User?: XOR<UserScalarRelationFilter, UserWhereInput>
     videos?: VideoListRelationFilter
     folders?: FolderListRelationFilter
     members?: MemberListRelationFilter
     invites?: InviteListRelationFilter
-  }, "id" | "userID">
+  }, "id">
 
   export type WorkspaceOrderByWithAggregationInput = {
     id?: SortOrder

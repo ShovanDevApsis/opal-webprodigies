@@ -176,6 +176,11 @@ export const CreateWorkspace = async (name: string) => {
 			},
 		});
 
+		console.log(
+			isAuthorized?.subscriptions?.plan,
+			"isAuthorized==============================="
+		);
+
 		if (isAuthorized?.subscriptions?.plan === "PRO") {
 			const create = await client.user.update({
 				where: {
@@ -190,6 +195,11 @@ export const CreateWorkspace = async (name: string) => {
 					},
 				},
 			});
+			console.log(
+				create,
+				"------------createsssssssssssss---------============================="
+			);
+
 			if (create) {
 				return { status: 200, data: create };
 			}

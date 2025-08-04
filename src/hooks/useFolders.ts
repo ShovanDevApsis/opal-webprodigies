@@ -4,9 +4,11 @@ import { useMutationData } from "./useMutationData";
 import { getWorkspaceFolders, MoveVideoLocation } from "@/actions/workspace";
 import { useZodForm } from "./useZodForm";
 import { moveFolderSchema } from "@/components/form/change-video-locaion/schema";
+import { useRouter } from "next/navigation";
 
 export const useMoveVideos = (videoId: string, currentWorkspaceId: string) => {
 	//  get state from redux store
+	const router = useRouter();
 	const { folders } = useAppSelector((state) => state.FolderReducer);
 	const { workspaces } = useAppSelector((state) => state.WorkspacesReducer);
 	// create states
@@ -26,13 +28,18 @@ export const useMoveVideos = (videoId: string, currentWorkspaceId: string) => {
 		| undefined
 	>(undefined);
 
+	const success = () => {
+		return router.push(`/dashboard/${currentWorkspaceId}`)
+	};
+
 	// use mutation data optimistic change
 	const { isPending, mutate } = useMutationData(
 		["change-video-location"],
 		(data: { folder_id: string; workspace_id: string }) => {
 			return MoveVideoLocation(data.folder_id, videoId, data.workspace_id);
 		},
-		"workspace-folders"
+		"workspace-folders",
+		success
 	);
 
 	// hookforms usezodform

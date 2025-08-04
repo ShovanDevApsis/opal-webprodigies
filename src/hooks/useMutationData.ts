@@ -21,10 +21,17 @@ export const useMutationData = (
 		mutationFn: mutationFn,
 		onSuccess: (data) => {
 			if (onSuccess) onSuccess();
-			toast("Success", {
-				description: data?.message,
-				style: { backgroundColor: "white", color: "black" },
-			});
+			if (data?.status === 200 || data?.status === 201) {
+				toast("Success", {
+					description: data?.message,
+					style: { backgroundColor: "white", color: "black" },
+				});
+			} else {
+				toast("❌Error❌", {
+					description: data?.message,
+					style: { backgroundColor: "white", color: "red" },
+				});
+			}
 		},
 		onError: (error) => {
 			console.error("❌ Mutation failed:", error);

@@ -44,22 +44,45 @@ function ChangeVideoLocation({
 					{workspaceInfo && workspaceInfo.name} Workspace
 				</h2>
 			</div>
-			<Separator orientation="horizontal" className="bg-neutral-600" />
+
 			<div className="flex items-center gap-2">
 				<Folder />
 				<h2 className="text-neutral-300 text-2xl"> {currentFolderName}</h2>
 			</div>
-			<Separator orientation="horizontal" className="bg-neutral-600" />
+
 			{folderInfo ? (
 				<p className="text-neutral-300 text-sm">{folderInfo.name}</p>
 			) : (
 				<p className="text-neutral-300 text-sm">This video has no folder</p>
 			)}
 			<Separator orientation="horizontal" className="bg-neutral-600" />
-			<span className="text-xl text-neutral-300">Move Folder To:</span>
-			<select {...register} className="bg-transparent rounded-xl text-base">
+			<span className="text-xl text-neutral-300">Move Worksace To:</span>
+			<select
+				{...register("workspace_id")}
+				className="bg-transparent rounded-xl text-base"
+			>
 				{workspaces.map((cur: any) => (
-					<option key={cur.id} value={cur.id}>
+					<option
+						key={cur.id}
+						value={cur.id}
+						className="bg-neutral-900 text-white"
+					>
+						{cur.name}
+					</option>
+				))}
+			</select>
+			<Separator orientation="horizontal" className="bg-neutral-600" />
+			<span className="text-xl text-neutral-300">Move Folder To:</span>
+			<select
+				{...register("folder_id")}
+				className="bg-transparent rounded-xl text-base"
+			>
+				{isFolders?.map((cur: any) => (
+					<option
+						key={cur.id}
+						value={cur.id}
+						className="bg-neutral-900 text-white"
+					>
 						{cur.name}
 					</option>
 				))}
