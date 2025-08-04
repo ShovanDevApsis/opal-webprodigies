@@ -33,8 +33,8 @@ function ChangeVideoLocation({
 		workspaces,
 	} = useMoveVideos(videoId, currentWorkspace as string);
 
-	const folderInfo = folders.find((f) => f.id === currentFolder);
-	const workspaceInfo = workspaces.find((f) => f.id === currentWorkspace);
+	const folderInfo = folders.find((f: any) => f.id === currentFolder);
+	const workspaceInfo = workspaces.find((f: any) => f.id === currentWorkspace);
 
 	return (
 		<form className="flex flex-col gap-y-5" onSubmit={onFormSubmit}>

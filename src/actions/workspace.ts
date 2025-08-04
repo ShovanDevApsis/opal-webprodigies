@@ -176,11 +176,6 @@ export const CreateWorkspace = async (name: string) => {
 			},
 		});
 
-		console.log(
-			isAuthorized?.subscriptions?.plan,
-			"isAuthorized==============================="
-		);
-
 		if (isAuthorized?.subscriptions?.plan === "PRO") {
 			const create = await client.user.update({
 				where: {
@@ -195,10 +190,6 @@ export const CreateWorkspace = async (name: string) => {
 					},
 				},
 			});
-			console.log(
-				create,
-				"------------createsssssssssssss---------============================="
-			);
 
 			if (create) {
 				return { status: 200, data: create };
@@ -310,6 +301,61 @@ export const MoveVideoLocation = async (folderId: string, videoId: string, works
 
 		if (video) {
 			return { status: 200, data: video };
+		}
+
+		return { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
+
+export const getAllVideos = async () => {
+	try {
+		const user = await currentUser();
+
+		if (!user) return { status: 403 };
+
+		const appUser = await client.user.findUnique({
+			where: {
+				clerkId: user.id,
+			},
+		});
+
+		if (!appUser) return { status: 403 };
+
+		const videos = await client.video.findMany({
+			where: {
+				userId: appUser.id,
+			},
+			take: 10,
+			select: {
+				id: true,
+				title: true,
+				source: true,
+				createdAt: true,
+				proccessing: true,
+				Folder: {
+					select: {
+						name: true,
+						id: true,
+					},
+				},
+				User: {
+					select: {
+						firstName: true,
+						lastName: true,
+						image: true,
+					},
+				},
+			},
+			orderBy: {
+				createdAt: "asc",
+			},
+		});
+
+		if (videos.length > 0) {
+			return { status: 200, data: videos };
 		}
 
 		return { status: 403, data: undefined };

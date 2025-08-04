@@ -52,7 +52,7 @@ function VideoCard(props: Props) {
 				<div className="bg-gray-800/20 h-[150px]"></div>
 				<div className="flex items-center justify-between p-2">
 					<div className="flex items-center gap-1">
-						<CopyToClipBoard />
+						<CopyToClipBoard videoId={props.id} />
 						<CardMenu
 							videoId={props.id}
 							currentFolder={props.Folder?.id}

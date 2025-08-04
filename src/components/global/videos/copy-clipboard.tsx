@@ -2,12 +2,14 @@ import { Paperclip } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
 
-type Props = {};
+type Props = {
+	videoId: string;
+};
 
-function CopyToClipBoard({}: Props) {
+function CopyToClipBoard({ videoId }: Props) {
 	const handleCopy = () => {
 		navigator.clipboard
-			.writeText('')
+			.writeText(`${process.env.NEXT_PUBLIC_HOST_URL}/preview/${videoId}`)
 			.then(() => {
 				toast("Copied!", {
 					description: "Succefully coied",

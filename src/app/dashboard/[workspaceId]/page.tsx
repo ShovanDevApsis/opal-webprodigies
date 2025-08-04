@@ -1,5 +1,6 @@
 import CreateFolders from "@/components/global/create-folders";
 import CreateWorkspace from "@/components/global/create-workspace";
+import DashboardVideos from "@/components/global/dashboard-videos";
 import Folders from "@/components/global/folder";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
@@ -39,6 +40,7 @@ function WrokspacePage({ params }: Props) {
 						</TabsContent>
 					</section>
 				</Tabs>
+				<DashboardVideos />
 			</div>
 		</>
 	);
