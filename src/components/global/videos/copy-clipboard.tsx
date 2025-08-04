@@ -1,12 +1,24 @@
 import { Paperclip } from "lucide-react";
 import React from "react";
+import { toast } from "sonner";
 
 type Props = {};
 
 function CopyToClipBoard({}: Props) {
+	const handleCopy = () => {
+		navigator.clipboard
+			.writeText('')
+			.then(() => {
+				toast("Copied!", {
+					description: "Succefully coied",
+					style: { backgroundColor: "white", color: "black" },
+				});
+			})
+			.catch((err) => console.error("Failed to copy: ", err));
+	};
 	return (
 		<>
-			<Paperclip className="cursor-pointer text-gray-400" />
+			<Paperclip className="cursor-pointer text-gray-400" onClick={handleCopy} />
 		</>
 	);
 }

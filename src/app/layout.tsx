@@ -4,6 +4,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 import { ThemeProvider } from "@/components/theme";
 
+import { Toaster } from "@/components/ui/sonner";
+
 import "./globals.css";
 import ReactQueryProvider from "@/react-query";
 import ReduxProvider from "@/redux/provider";
@@ -43,6 +45,7 @@ export default function RootLayout({
 							</ReactQueryProvider>
 						</ReduxProvider>
 					</ThemeProvider>
+					<Toaster />
 				</body>
 			</html>
 		</ClerkProvider>

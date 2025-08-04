@@ -31,9 +31,10 @@ export const useMoveVideos = (videoId: string, currentWorkspaceId: string) => {
 		["change-video-location"],
 		(data: { folder_id: string; workspace_id: string }) => {
 			return MoveVideoLocation(data.folder_id, videoId, data.workspace_id);
-		}
+		},
+		"workspace-folders"
 	);
-	
+
 	// hookforms usezodform
 	const { errors, onFormSubmit, watch, register } = useZodForm(mutate, moveFolderSchema);
 

@@ -21,9 +21,13 @@ export const useMutationData = (
 		mutationFn: mutationFn,
 		onSuccess: (data) => {
 			if (onSuccess) onSuccess();
-			return toast.message(data?.status === 200 ? "Succes" : "Error", {
+			toast("Success", {
 				description: data?.message,
+				style: { backgroundColor: "white", color: "black" },
 			});
+		},
+		onError: (error) => {
+			console.error("❌ Mutation failed:", error);
 		},
 		onSettled: async () => {
 			return await queryClient.invalidateQueries({ queryKey: [queryKey] });
@@ -38,7 +42,7 @@ export const useMutationStateData = (mutationKey: MutationKey) => {
 		filters: { mutationKey },
 		select: (mutation) => {
 			return {
-				variable: mutation.state.variables as {name: string, id: string},
+				variable: mutation.state.variables as { name: string; id: string },
 				status: mutation.state.status,
 			};
 		},
