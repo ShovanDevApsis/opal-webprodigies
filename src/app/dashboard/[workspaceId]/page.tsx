@@ -37,10 +37,12 @@ function WrokspacePage({ params }: Props) {
 					<section className="py-9 w-full">
 						<TabsContent value="videos" className="w-full">
 							<Folders workspaceId={params.workspaceId} />
+							<div className="mt-4">
+								<DashboardVideos />
+							</div>
 						</TabsContent>
 					</section>
 				</Tabs>
-				<DashboardVideos />
 			</div>
 		</>
 	);

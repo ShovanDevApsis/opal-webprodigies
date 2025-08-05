@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { getAllVideos } from "@/actions/workspace";
@@ -7,26 +8,21 @@ import React from "react";
 import VideoCard from "../videos/video-card";
 import { cn } from "@/lib/utils";
 
-
 function DashboardVideos() {
-	const {
-		data: response,
-		isFetching,
-		isPending,
-	} = useQueryData(["user-all-videos"], getAllVideos);
+	const { data: response, isFetching } = useQueryData(["user-all-videos"], getAllVideos);
 
-	console.log(response);
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const isEmptyObject = (obj: any) => {
 		return Object.keys(obj).length === 0 && obj.constructor === Object;
 	};
 
-	if (isFetching || isPending || isEmptyObject(response)) {
+	if (isFetching) {
 		return (
 			<div className="space-y-2">
-				<Skeleton className="h-4 w-[250px]" />
-				<Skeleton className="h-4 w-[200px]" />
+				<Skeleton className="h-7 w-full bg-neutral-500 text-neutral-500" />
+				<Skeleton className="h-7 w-full bg-neutral-500 text-neutral-500" />
+				<Skeleton className="h-7 w-full bg-neutral-500 text-neutral-500" />
+				<Skeleton className="h-7 w-full bg-neutral-500 text-neutral-500" />
+				<Skeleton className="h-7 w-full bg-neutral-500 text-neutral-500" />
 			</div>
 		);
 	}
@@ -35,14 +31,14 @@ function DashboardVideos() {
 		<div className="py-3 border border-gray-800 rounded-md px-2">
 			<section
 				className={cn(
-					response && response?.status !== 200
+					!isEmptyObject(response)
 						? "p-5"
 						: "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
 				)}
 			>
-				{response && response?.status === 200 ? (
+				{!isEmptyObject(response) ? (
 					<>
-						{response?.data?.map((video) => (
+						{response?.data?.map((video: any) => (
 							<VideoCard
 								key={video.id}
 								Folder={video.Folder}

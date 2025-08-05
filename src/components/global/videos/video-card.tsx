@@ -7,6 +7,7 @@ import { User, Share2, Circle, Eye } from "lucide-react";
 import Loader from "../loader";
 import CardMenu from "./card-menu";
 import CopyToClipBoard from "./copy-clipboard";
+import Link from "next/link";
 
 type Props = {
 	User: {
@@ -49,7 +50,24 @@ function VideoCard(props: Props) {
 		<Card className="w-full max-w-sm !p-0 bg-gray-900/10 h-[380px]  border-gray-700 overflow-hidden">
 			<Loader state={props.processing}>
 				{/* Top section with white background */}
-				<div className="bg-gray-800/20 h-[150px]"></div>
+				<div className="bg-gray-800/20 h-[150px]">
+					<Link
+						href={`/preview/${props.id}`}
+						className="bg-neutral-700 transition-colors  hover:bg-neutral-900"
+					>
+						<video
+							controls={false}
+							preload="metadata"
+							className="w-full aspect-video opacity-50 z-20"
+						>
+							<source
+								src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_UR}/${props.source}/#t=1`}
+								type="video/mp4"
+							/>
+							Your browser does not support the video tag.
+						</video>
+					</Link>
+				</div>
 				<div className="flex items-center justify-between p-2">
 					<div className="flex items-center gap-1">
 						<CopyToClipBoard videoId={props.id} />
