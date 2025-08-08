@@ -7,7 +7,8 @@ type Props = {
 };
 
 function CopyToClipBoard({ videoId }: Props) {
-	const handleCopy = () => {
+	const handleCopy = (e: React.MouseEvent) => {
+		e.stopPropagation();
 		navigator.clipboard
 			.writeText(`${process.env.NEXT_PUBLIC_HOST_URL}/preview/${videoId}`)
 			.then(() => {
@@ -20,7 +21,10 @@ function CopyToClipBoard({ videoId }: Props) {
 	};
 	return (
 		<>
-			<Paperclip className="cursor-pointer text-gray-400" onClick={handleCopy} />
+			<Paperclip
+				className="cursor-pointer text-gray-400"
+				onClick={(e) => handleCopy(e)}
+			/>
 		</>
 	);
 }
