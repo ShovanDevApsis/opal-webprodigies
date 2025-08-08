@@ -364,3 +364,22 @@ export const getAllVideos = async () => {
 		return { status: 403, data: undefined };
 	}
 };
+
+export const getPreviewVideo = async (videoId: string) => {
+	try {
+		const user = await currentUser();
+		if (!user) return { status: 403 };
+
+		const video = await client.video.findUnique({
+			where: {
+				id: videoId
+			},
+			select: {
+				
+			}
+		})
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
