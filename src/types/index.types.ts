@@ -67,7 +67,6 @@ export type FolderTypeSingle = {
 export type VideosResponse = {
 	status: number;
 	data: {
-		[x: string]: boolean;
 		id: string;
 		title: string;
 		source: string;
@@ -84,3 +83,33 @@ export type VideosResponse = {
 		} | null;
 	}[];
 };
+
+export type GetPreviewVideoResponse =
+	| {
+			status: 200;
+			data: {
+				title: string;
+				createdAt: Date;
+				source: string;
+				description: string | null;
+				proccessing: boolean;
+				views: number;
+				summery: string | null;
+				User: {
+					firstName: string;
+					lastName: string;
+					image: string | null;
+					clerkId: string;
+					trial: boolean;
+					subscriptions: {
+						plan: string;
+					}[];
+				};
+			};
+			author: boolean;
+	  }
+	| {
+			status: 403;
+			data?: undefined;
+			author?: undefined;
+	  };

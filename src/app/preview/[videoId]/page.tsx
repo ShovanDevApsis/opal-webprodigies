@@ -1,5 +1,6 @@
-import { getUserVideos } from "@/actions/workspace";
-import { QueryClient } from "@tanstack/react-query";
+import { getPreviewVideo } from "@/actions/workspace";
+import VideoPreview from "@/components/global/videos/preview";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import React from "react";
 
 type Props = {
@@ -9,11 +10,18 @@ type Props = {
 async function VideoPage({ params: { videoId } }: Props) {
 	const queryClinet = new QueryClient();
 
-	await queryClinet.prefetchQuery({ queryKey: ["preview-video"], queryFn: () => {
-        getPreviewVideo(videoId)
-    } });
+	await queryClinet.prefetchQuery({
+		queryKey: ["preview-video"],
+		queryFn: () => {
+			getPreviewVideo(videoId);
+		},
+	});
 
-	return <div>VideoPage</div>;
+	return (
+		<HydrationBoundary state={dehydrate(queryClinet)}>
+			<VideoPreview videoId={videoId} />
+		</HydrationBoundary>
+	);
 }
 
 export default VideoPage;

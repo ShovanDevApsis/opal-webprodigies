@@ -372,14 +372,47 @@ export const getPreviewVideo = async (videoId: string) => {
 
 		const video = await client.video.findUnique({
 			where: {
-				id: videoId
+				id: videoId,
 			},
 			select: {
-				
-			}
-		})
+				title: true,
+				createdAt: true,
+				source: true,
+				description: true,
+				proccessing: true,
+				views: true,
+				summery: true,
+				User: {
+					select: {
+						firstName: true,
+						lastName: true,
+						image: true,
+						clerkId: true,
+						trial: true,
+						subscriptions: {
+							select: {
+								plan: true,
+							},
+						},
+					},
+				},
+			},
+		});
+
+		if (video) {
+			return {
+				status: 200,
+				data: video,
+				author: user.id === video.User.clerkId ? true : false,
+			};
+		}
+
+		return { status: 403, data: undefined };
 	} catch (error) {
 		console.log(error);
 		return { status: 403, data: undefined };
 	}
 };
+
+
+

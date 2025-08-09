@@ -48,7 +48,7 @@ function Videos({ folderId, workspaceId, videoKey }: Props) {
 									new Date(video.createdAt)
 								}
 								id={video.id}
-								processing={video.processing}
+								processing={video.proccessing}
 								workspaceId={workspaceId}
 								source={video.source}
 								title={video.title}
