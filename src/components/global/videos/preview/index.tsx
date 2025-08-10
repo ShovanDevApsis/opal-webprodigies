@@ -106,19 +106,19 @@ function VideoPreview({ videoId }: Props) {
 						{responseData.description}
 					</p>
 				</div>
-			</div>
-			<div className="lg:col-span-1 flex flex-col gap-y-16">
-				<div className="flex justify-end items-center gap-x-3">
-					<CopyToClipBoard videoId={videoId} />
-					<RichLink
-						title={responseData.title}
-						id={videoId}
-						source={responseData.source}
-						description={truncateString(
-							responseData.description || "",
-							150
-						)}
-					/>
+				<div className="lg:col-span-1 flex flex-col gap-y-16">
+					<div className="flex justify-end items-center gap-x-3">
+						<CopyToClipBoard videoId={videoId} />
+						<RichLink
+							title={responseData.title}
+							id={videoId}
+							source={responseData.source}
+							description={truncateString(
+								responseData.description || "",
+								150
+							)}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
