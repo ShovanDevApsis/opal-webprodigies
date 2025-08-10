@@ -108,7 +108,7 @@ function VideoPreview({ videoId }: Props) {
 				</div>
 			</div>
 			<div className="lg:col-span-1 flex flex-col gap-y-16">
-				<div className="flex justify-end gap-x-3">
+				<div className="flex justify-end items-center gap-x-3">
 					<CopyToClipBoard videoId={videoId} />
 					<RichLink
 						title={responseData.title}
