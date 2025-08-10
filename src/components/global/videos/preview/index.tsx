@@ -6,6 +6,9 @@ import { GetPreviewVideoResponse } from "@/types/index.types";
 import { useRouter } from "next/navigation";
 import React from "react";
 import SkeletonLoader from "../../skeleton";
+import CopyToClipBoard from "../copy-clipboard";
+import RichLink from "../rich-link";
+import { truncateString } from "@/lib/utils";
 
 type Props = {
 	videoId: string;
@@ -41,7 +44,7 @@ function VideoPreview({ videoId }: Props) {
 	const { data: responseData, status, author } = data as GetPreviewVideoResponse;
 
 	if (status !== 200) {
-		return router.push(`/`);
+		return router.push(`/dashboard`);
 	}
 
 	const daysAgo = getTimeAgo(responseData.createdAt);
@@ -54,7 +57,68 @@ function VideoPreview({ videoId }: Props) {
 						<h5 className="text-white text-4xl font-bold">
 							{responseData.title}
 						</h5>
+						{/* Eiit Video if author exists */}
+						{/* {author && (
+							<EditVideo
+								videoId={videoId}
+								title={responseData.title}
+								description={
+									responseData.description
+								}
+							/>
+						)} */}
+						<span className="flex gap-2">
+							<p className="text-neutral-600 capitalize text-sm">
+								{responseData?.User?.firstName}{" "}
+								{responseData?.User?.lastName}
+							</p>
+							<p className="text-neutral-600 text-sm">
+								{daysAgo}
+							</p>
+						</span>
 					</div>
+				</div>
+				<video
+					controls
+					preload="metadata"
+					className="w-full aspect-video opacity-50 rounded-xl"
+				>
+					<source
+						src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL}/${responseData.source}#1`}
+					/>
+				</video>
+				<div className="flex flex-col text-2xl gap-y-4">
+					<div className="flex gap-x-5 items-center justify-between">
+						<p className="text-neutral-600 font-semibold">
+							Description
+						</p>
+					</div>
+					{/* {author && (
+							<EditVideo
+								videoId={videoId}
+								title={responseData.title}
+								description={
+									responseData.description
+								}
+							/>
+						)} */}
+					<p className="text-neutral-600 text-sm">
+						{responseData.description}
+					</p>
+				</div>
+			</div>
+			<div className="lg:col-span-1 flex flex-col gap-y-16">
+				<div className="flex justify-end gap-x-3">
+					<CopyToClipBoard videoId={videoId} />
+					<RichLink
+						title={responseData.title}
+						id={videoId}
+						source={responseData.source}
+						description={truncateString(
+							responseData.description || "",
+							150
+						)}
+					/>
 				</div>
 			</div>
 		</div>
