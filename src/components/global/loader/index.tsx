@@ -13,7 +13,7 @@ type Props = {
 function LoaderItem({ state, className, color, children }: Props) {
 	if (state) {
 		return (
-			<div className={cn(className)}>
+			<div className={cn(className, "!min-w-[40px] flex items-center justify-center")}>
 				<Loader className="animate-spin"/>
 			</div>
 		);

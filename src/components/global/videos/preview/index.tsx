@@ -14,6 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AiTools from "../../ai-tools";
 import Transcript from "../../transcript";
 import Activity from "../../activity/activity";
+import { Button } from "@/components/ui/button";
 
 type Props = {
 	videoId: string;
@@ -56,49 +57,13 @@ function VideoPreview({ videoId }: Props) {
 	const daysAgo = getTimeAgo(responseData.createdAt);
 
 	return (
-		<div className="grid grid-cols-1 xl:grid-cols-3 p-10 lg:px-20 lg:py-10 overflow-y-auto gap-5">
-			<div className="flex flex-col lg:col-span-2 gap-y-10">
-				<div>
-					<div className="flex gap-x-5 items-center justify-between">
-						<h5 className="text-white text-4xl font-bold">
-							{responseData.title}
-						</h5>
-						{/* Eiit Video if author exists */}
-						{/* {author && (
-							<EditVideo
-								videoId={videoId}
-								title={responseData.title}
-								description={
-									responseData.description
-								}
-							/>
-						)} */}
-						<span className="flex gap-2">
-							<p className="text-neutral-600 capitalize text-sm">
-								{responseData?.User?.firstName}{" "}
-								{responseData?.User?.lastName}
-							</p>
-							<p className="text-neutral-600 text-sm">
-								{daysAgo}
-							</p>
-						</span>
-					</div>
-				</div>
-				<video
-					controls
-					preload="metadata"
-					className="w-full aspect-video opacity-50 rounded-xl"
-				>
-					<source
-						src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL}/${responseData.source}#1`}
-					/>
-				</video>
-				<div className="flex flex-col text-2xl gap-y-4">
-					<div className="flex gap-x-5 items-center justify-between">
-						<p className="text-neutral-600 font-semibold">
-							Description
-						</p>
-					</div>
+		<div className="p-10 lg:px-20 lg:py-10 overflow-y-auto">
+			<div className="flex flex-col gap-3 mb-6">
+				<div className="flex gap-x-5 items-center justify-between">
+					<h5 className="text-white text-4xl font-bold">
+						{responseData.title}
+					</h5>
+					{/* Eiit Video if author exists */}
 					{/* {author && (
 							<EditVideo
 								videoId={videoId}
@@ -108,9 +73,15 @@ function VideoPreview({ videoId }: Props) {
 								}
 							/>
 						)} */}
-					<p className="text-neutral-600 text-sm">
-						{responseData.description}
-					</p>
+					<span className="flex gap-2">
+						<p className="text-neutral-600 capitalize text-sm">
+							{responseData?.User?.firstName}{" "}
+							{responseData?.User?.lastName}
+						</p>
+						<p className="text-neutral-600 text-sm">
+							{daysAgo}
+						</p>
+					</span>
 				</div>
 				<div className="lg:col-span-1 flex flex-col gap-y-16">
 					<div className="flex justify-end items-center gap-x-3">
@@ -124,49 +95,96 @@ function VideoPreview({ videoId }: Props) {
 								150
 							)}
 						/>
-						<Download />
 					</div>
 				</div>
-				<Tabs defaultValue={activeTab} onValueChange={setactiveTab}>
-					<TabsList>
-						<TabsTrigger
-							value="ai"
-							className={cn(
-								"cursor-pointer border border-neutral-700 px-3 py-2 shadow-xl",
-								activeTab === "ai" && "bg-neutral-500"
-							)}
+			</div>
+
+			<div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+				<div className="flex flex-col lg:col-span-2 gap-y-10">
+					<video
+						controls
+						preload="metadata"
+						className="w-full aspect-video opacity-50 rounded-xl"
+					>
+						<source
+							src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL}/${responseData.source}#1`}
+						/>
+					</video>
+					<div className="flex w-full items-center justify-between">
+						<div className="flex flex-col text-2xl gap-y-4">
+							<div className="flex gap-x-5 items-center justify-between">
+								<p className="text-neutral-600 font-semibold">
+									Description
+								</p>
+							</div>
+							{/* {author && (
+							<EditVideo
+								videoId={videoId}
+								title={responseData.title}
+								description={
+									responseData.description
+								}
+							/>
+						)} */}
+							<p className="text-neutral-600 text-sm">
+								{responseData.description}
+							</p>
+						</div>
+						<Button
+							variant={"default"}
+							className="cursor-pointer bg-white text-black hover:bg-gray-200 transition-colors"
 						>
-							Ai Toolts
-						</TabsTrigger>
-						<TabsTrigger
-							value="transcript"
-							className={cn(
-								"cursor-pointer border border-neutral-700 px-3 py-2 shadow-xl",
-								activeTab === "transcript" && "bg-neutral-500"
-							)}
-						>
-							Transcript
-						</TabsTrigger>
-						<TabsTrigger
-							value="activity"
-							className={cn(
-								"cursor-pointer border border-neutral-700 px-3 py-2 shadow-xl",
-								activeTab === "activity" && "bg-neutral-500"
-							)}
-						>
-							Activity
-						</TabsTrigger>
-					</TabsList>
-					<TabsContent value="ai">
-						<AiTools />
-					</TabsContent>
-					<TabsContent value="transcript">
-						<Transcript />
-					</TabsContent>
-					<TabsContent value="activity">
-						<Activity />
-					</TabsContent>
-				</Tabs>
+							<Download />
+							Download
+						</Button>
+					</div>
+				</div>
+				<div className="lg:col-span-1 ">
+					<Tabs defaultValue={activeTab} onValueChange={setactiveTab}>
+						<TabsList>
+							<TabsTrigger
+								value="ai"
+								className={cn(
+									"cursor-pointer border border-neutral-700 px-3 py-2 shadow-xl",
+									activeTab === "ai" &&
+										"bg-neutral-500"
+								)}
+							>
+								Ai Toolts
+							</TabsTrigger>
+							<TabsTrigger
+								value="transcript"
+								className={cn(
+									"cursor-pointer border border-neutral-700 px-3 py-2 shadow-xl",
+									activeTab ===
+										"transcript" &&
+										"bg-neutral-500"
+								)}
+							>
+								Transcript
+							</TabsTrigger>
+							<TabsTrigger
+								value="activity"
+								className={cn(
+									"cursor-pointer border border-neutral-700 px-3 py-2 shadow-xl",
+									activeTab === "activity" &&
+										"bg-neutral-500"
+								)}
+							>
+								Activity
+							</TabsTrigger>
+						</TabsList>
+						<TabsContent value="ai">
+							<AiTools />
+						</TabsContent>
+						<TabsContent value="transcript">
+							<Transcript />
+						</TabsContent>
+						<TabsContent value="activity">
+							<Activity />
+						</TabsContent>
+					</Tabs>
+				</div>
 			</div>
 		</div>
 	);
