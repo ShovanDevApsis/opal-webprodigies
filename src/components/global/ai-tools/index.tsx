@@ -6,14 +6,15 @@ import { Play, FileText, Download, Filter, Volume2, Edit3 } from "lucide-react";
 import Loader from "../loader";
 
 type Props = {
-	plan: "PRO" | "FREE";
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	plan: any;
 	trial: boolean;
 	videoId: string;
 };
 
 function AiTools({ plan, trial, videoId }: Props) {
 	return (
-		<main className="min-h-screen text-white p-6 bg-neutral-800/80 shadow-2xl rounded-md h-fit">
+		<main className=" text-white p-6 bg-neutral-800/80 shadow-2xl rounded-md">
 			<div className="max-w-4xl mx-auto">
 				{/* Header */}
 				<div className="flex items-center justify-between mb-8">

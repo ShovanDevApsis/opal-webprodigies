@@ -37,8 +37,10 @@ const getTimeAgo = (createdAt: string | Date): string => {
 };
 
 function VideoPreview({ videoId }: Props) {
+	// To Do Setup notify first view
+	// To Do Setup activity
 	const [activeTab, setactiveTab] = useState("ai");
-	// Setup notify first view
+
 	const router = useRouter();
 	const { data, isFetching } = useQueryData(["preview-video"], () =>
 		getPreviewVideo(videoId)
@@ -141,7 +143,7 @@ function VideoPreview({ videoId }: Props) {
 				</div>
 				<div className="lg:col-span-1 ">
 					<Tabs defaultValue={activeTab} onValueChange={setactiveTab}>
-						<TabsList>
+						<TabsList className="flex gap-3">
 							<TabsTrigger
 								value="ai"
 								className={cn(
@@ -175,10 +177,21 @@ function VideoPreview({ videoId }: Props) {
 							</TabsTrigger>
 						</TabsList>
 						<TabsContent value="ai">
-							<AiTools />
+							<AiTools
+								videoId={videoId}
+								trial={responseData.User.trial}
+								plan={
+									responseData.User
+										.subscriptions
+								}
+							/>
 						</TabsContent>
 						<TabsContent value="transcript">
-							<Transcript />
+							<Transcript
+								transcript={
+									responseData?.description
+								}
+							/>
 						</TabsContent>
 						<TabsContent value="activity">
 							<Activity />
