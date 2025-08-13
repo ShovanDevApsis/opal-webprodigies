@@ -59,7 +59,7 @@ function VideoPreview({ videoId }: Props) {
 	const daysAgo = getTimeAgo(responseData.createdAt);
 
 	return (
-		<div className="p-10 lg:px-20 lg:py-10 overflow-y-auto">
+		<div className="p-3 lg:px-5 lg:py-2 overflow-y-auto">
 			<div className="flex flex-col gap-3 mb-6">
 				<div className="flex gap-x-5 items-center justify-between">
 					<h5 className="text-white text-4xl font-bold">

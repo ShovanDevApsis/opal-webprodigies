@@ -56,7 +56,11 @@ function VideoCard(props: Props) {
 						controls={false}
 						preload="metadata"
 						className="w-full aspect-video opacity-50 !h-[150px] cursor-pointer"
-						onClick={() => router.push(`/preview/${props.id}`)}
+						onClick={() =>
+							router.push(
+								`/dashboard/${props.workspaceId}/video/${props.id}`
+							)
+						}
 					>
 						<source
 							src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_UR}/${props.source}/#t=1`}

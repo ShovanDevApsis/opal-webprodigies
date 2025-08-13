@@ -48,7 +48,7 @@ function DashboardVideos() {
 								}
 								id={video.id}
 								processing={video.processing}
-								workspaceId={""}
+								workspaceId={video?.Workspace?.id}
 								source={video.source}
 								title={video.title}
 							/>

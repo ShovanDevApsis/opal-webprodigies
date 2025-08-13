@@ -341,6 +341,11 @@ export const getAllVideos = async () => {
 						id: true,
 					},
 				},
+				Workspace: {
+					select: {
+						id: true,
+					},
+				},
 				User: {
 					select: {
 						firstName: true,
@@ -413,6 +418,3 @@ export const getPreviewVideo = async (videoId: string) => {
 		return { status: 403, data: undefined };
 	}
 };
-
-
-
