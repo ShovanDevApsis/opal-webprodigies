@@ -12,9 +12,8 @@ async function VideoPage({ params: { videoId } }: Props) {
 
 	await queryClinet.prefetchQuery({
 		queryKey: ["preview-video"],
-		queryFn: () => {
-			getPreviewVideo(videoId);
-		},
+		queryFn: () =>  getPreviewVideo(videoId)
+		
 	});
 
 	return (
