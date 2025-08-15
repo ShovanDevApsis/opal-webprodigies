@@ -153,3 +153,31 @@ export const searchUsers = async (query: string) => {
 		return { status: 403, data: undefined };
 	}
 };
+
+export const getBilingInformation = async () => {
+	try {
+		const user = await currentUser();
+		if (!user) {
+			return { status: 403 };
+		}
+		const planInfo = await client.user.findUnique({
+			where: {
+				clerkId: user.id,
+			},
+			select: {
+				subscriptions: {
+					select: {
+						plan: true,
+					},
+				},
+			},
+		});
+
+		return planInfo
+			? { status: 200, data: planInfo }
+			: { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
