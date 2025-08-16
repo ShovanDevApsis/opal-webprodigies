@@ -181,3 +181,51 @@ export const getBilingInformation = async () => {
 		return { status: 403, data: undefined };
 	}
 };
+
+export const changeViewFirst = async (isEnable: boolean) => {
+	try {
+		const user = await currentUser();
+		if (!user) {
+			return { status: 403 };
+		}
+
+		const enableOrDisable = await client.user.update({
+			where: {
+				clerkId: user.id,
+			},
+			data: {
+				firstView: isEnable,
+			},
+		});
+
+		return enableOrDisable
+			? { status: 200, data: enableOrDisable }
+			: { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
+
+export const getFirstView = async () => {
+	try {
+		const user = await currentUser();
+		if (!user) {
+			return { status: 403 };
+		}
+
+		const data = await client.user.findUnique({
+			where: {
+				clerkId: user.id,
+			},
+			select: {
+				firstView: true,
+			},
+		});
+
+		return data ? { status: 200, data: data } : { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
