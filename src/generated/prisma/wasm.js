@@ -126,7 +126,8 @@ exports.Prisma.UserScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   image: 'image',
-  trial: 'trial'
+  trial: 'trial',
+  firstView: 'firstView'
 };
 
 exports.Prisma.MediaScalarFieldEnum = {

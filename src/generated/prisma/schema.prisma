@@ -32,6 +32,7 @@ model User {
   sender        Invite[]       @relation("sender")
   receiver      Invite[]       @relation("receiver")
   notifications Notification[]
+  firstView     Boolean        @default(false)
 }
 
 // Enums for the schema
@@ -74,7 +75,7 @@ model Subscription {
 model Workspace {
   id      String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name    String
-  userID  String   @unique @db.Uuid
+  userID  String   @db.Uuid
   User    User     @relation(fields: [userID], references: [id])
   type    Type
   videos  Video[]

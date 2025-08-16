@@ -32,6 +32,7 @@ model User {
   sender Invite[] @relation("sender")
   receiver Invite[] @relation("receiver")
   notifications Notification[]
+  firstView Boolean @default(false)
 }
 // Enums for the schema
 // These enums are used to define the types of media presets, user types, and subscription plans

@@ -1,8 +1,12 @@
 "use client";
+import React from "react";
+
 import { getUserNotificatons } from "@/actions/user";
 import SkeletonLoader from "@/components/global/skeleton";
 import { useQueryData } from "@/hooks/useQueryData";
-import React from "react";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { User } from "lucide-react";
 
 function NotificationsPage() {
 	const { data: response, isPending } = useQueryData(
@@ -10,7 +14,7 @@ function NotificationsPage() {
 		getUserNotificatons
 	);
 
-	const { data: notifications, status } = response as {
+	const { data: notificationsResponseData, status } = response as {
 		status: number;
 		data: {
 			notification: {
@@ -33,7 +37,23 @@ function NotificationsPage() {
 		);
 	}
 
-	return <div>NotificationsPage</div>;
+	return (
+		<div className="flex flex-col">
+			{notificationsResponseData?.notification?.map((n) => (
+				<div
+					key={n.id}
+					className="border-2 flex gap-1 items-center rounded-lg p-3"
+				>
+					<Avatar>
+						<AvatarFallback>
+							<User />
+						</AvatarFallback>
+					</Avatar>
+					<p className="text-neutral-400">{n.contnet}</p>
+				</div>
+			))}
+		</div>
+	);
 }
 
 export default NotificationsPage;

@@ -1822,6 +1822,7 @@ export namespace Prisma {
     lastName: string | null
     image: string | null
     trial: boolean | null
+    firstView: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1834,6 +1835,7 @@ export namespace Prisma {
     lastName: string | null
     image: string | null
     trial: boolean | null
+    firstView: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1846,6 +1848,7 @@ export namespace Prisma {
     lastName: number
     image: number
     trial: number
+    firstView: number
     _all: number
   }
 
@@ -1860,6 +1863,7 @@ export namespace Prisma {
     lastName?: true
     image?: true
     trial?: true
+    firstView?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1872,6 +1876,7 @@ export namespace Prisma {
     lastName?: true
     image?: true
     trial?: true
+    firstView?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1884,6 +1889,7 @@ export namespace Prisma {
     lastName?: true
     image?: true
     trial?: true
+    firstView?: true
     _all?: true
   }
 
@@ -1969,6 +1975,7 @@ export namespace Prisma {
     lastName: string | null
     image: string | null
     trial: boolean
+    firstView: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1998,6 +2005,7 @@ export namespace Prisma {
     lastName?: boolean
     image?: boolean
     trial?: boolean
+    firstView?: boolean
     studio?: boolean | User$studioArgs<ExtArgs>
     workspace?: boolean | User$workspaceArgs<ExtArgs>
     videos?: boolean | User$videosArgs<ExtArgs>
@@ -2019,6 +2027,7 @@ export namespace Prisma {
     lastName?: boolean
     image?: boolean
     trial?: boolean
+    firstView?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2031,6 +2040,7 @@ export namespace Prisma {
     lastName?: boolean
     image?: boolean
     trial?: boolean
+    firstView?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2043,9 +2053,10 @@ export namespace Prisma {
     lastName?: boolean
     image?: boolean
     trial?: boolean
+    firstView?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "createdAt" | "updatedAt" | "email" | "firstName" | "lastName" | "image" | "trial", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "createdAt" | "updatedAt" | "email" | "firstName" | "lastName" | "image" | "trial" | "firstView", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     studio?: boolean | User$studioArgs<ExtArgs>
     workspace?: boolean | User$workspaceArgs<ExtArgs>
@@ -2082,6 +2093,7 @@ export namespace Prisma {
       lastName: string | null
       image: string | null
       trial: boolean
+      firstView: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2522,6 +2534,7 @@ export namespace Prisma {
     readonly lastName: FieldRef<"User", 'String'>
     readonly image: FieldRef<"User", 'String'>
     readonly trial: FieldRef<"User", 'Boolean'>
+    readonly firstView: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -12070,7 +12083,8 @@ export namespace Prisma {
     firstName: 'firstName',
     lastName: 'lastName',
     image: 'image',
-    trial: 'trial'
+    trial: 'trial',
+    firstView: 'firstView'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -12319,6 +12333,7 @@ export namespace Prisma {
     lastName?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
     trial?: BoolFilter<"User"> | boolean
+    firstView?: BoolFilter<"User"> | boolean
     studio?: XOR<MediaNullableScalarRelationFilter, MediaWhereInput> | null
     workspace?: WorkspaceListRelationFilter
     videos?: VideoListRelationFilter
@@ -12339,6 +12354,7 @@ export namespace Prisma {
     lastName?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     trial?: SortOrder
+    firstView?: SortOrder
     studio?: MediaOrderByWithRelationInput
     workspace?: WorkspaceOrderByRelationAggregateInput
     videos?: VideoOrderByRelationAggregateInput
@@ -12362,6 +12378,7 @@ export namespace Prisma {
     lastName?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
     trial?: BoolFilter<"User"> | boolean
+    firstView?: BoolFilter<"User"> | boolean
     studio?: XOR<MediaNullableScalarRelationFilter, MediaWhereInput> | null
     workspace?: WorkspaceListRelationFilter
     videos?: VideoListRelationFilter
@@ -12382,6 +12399,7 @@ export namespace Prisma {
     lastName?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     trial?: SortOrder
+    firstView?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -12400,6 +12418,7 @@ export namespace Prisma {
     lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     trial?: BoolWithAggregatesFilter<"User"> | boolean
+    firstView?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type MediaWhereInput = {
@@ -12909,6 +12928,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkspaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -12929,6 +12949,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkspaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -12949,6 +12970,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -12969,6 +12991,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
@@ -12989,6 +13012,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -13001,6 +13025,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -13013,6 +13038,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MediaCreateInput = {
@@ -13638,6 +13664,7 @@ export namespace Prisma {
     lastName?: SortOrder
     image?: SortOrder
     trial?: SortOrder
+    firstView?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -13650,6 +13677,7 @@ export namespace Prisma {
     lastName?: SortOrder
     image?: SortOrder
     trial?: SortOrder
+    firstView?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -13662,6 +13690,7 @@ export namespace Prisma {
     lastName?: SortOrder
     image?: SortOrder
     trial?: SortOrder
+    firstView?: SortOrder
   }
 
   export type UuidWithAggregatesFilter<$PrismaModel = never> = {
@@ -15524,6 +15553,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     workspace?: WorkspaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionCreateNestedOneWithoutUserInput
@@ -15543,6 +15573,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     workspace?: WorkspaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -15578,6 +15609,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     workspace?: WorkspaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -15597,6 +15629,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     workspace?: WorkspaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -15616,6 +15649,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkspaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -15635,6 +15669,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkspaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -15670,6 +15705,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -15689,6 +15725,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
@@ -15708,6 +15745,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionCreateNestedOneWithoutUserInput
@@ -15727,6 +15765,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -15872,6 +15911,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -15891,6 +15931,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -16092,6 +16133,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkspaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -16111,6 +16153,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkspaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -16171,6 +16214,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -16190,6 +16234,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
@@ -16259,6 +16304,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkspaceCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionCreateNestedOneWithoutUserInput
@@ -16278,6 +16324,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkspaceUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -16363,6 +16410,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -16382,6 +16430,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -16432,6 +16481,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkspaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -16451,6 +16501,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkspaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -16475,6 +16526,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkspaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -16494,6 +16546,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkspaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -16554,6 +16607,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -16573,6 +16627,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
@@ -16603,6 +16658,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -16622,6 +16678,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
@@ -16672,6 +16729,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkspaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -16691,6 +16749,7 @@ export namespace Prisma {
     lastName?: string | null
     image?: string | null
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkspaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -16726,6 +16785,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -16745,6 +16805,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkspaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
