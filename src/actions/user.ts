@@ -2,6 +2,7 @@
 
 import { client } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
+import { useId } from "react";
 
 export const onAuthenticateUser = async () => {
 	try {
@@ -224,6 +225,56 @@ export const getFirstView = async () => {
 		});
 
 		return data ? { status: 200, data: data } : { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
+
+export const createCommentAndReply = async (
+	userId: string,
+	comment: string,
+	videoID: string,
+	commentId?: string | undefined
+) => {
+	try {
+		const user = await currentUser();
+		if (!user) {
+			return { status: 403 };
+		}
+
+		const reply = await client.comment.update({
+			where: {
+				id: commentId,
+			},
+			data: {
+				reply: {
+					create: {
+						comment: comment,
+						userId: userId,
+						videoId: videoID,
+					},
+				},
+			},
+		});
+
+		if (reply) {
+			return { status: 200, data: reply };
+		}
+
+		const newComment = await client.video.update({
+			where: {
+				id: videoID,
+			},
+			data: {
+				comment: {
+					create: {
+						comment: comment,
+						userId: userId,
+					},
+				},
+			},
+		});
 	} catch (error) {
 		console.log(error);
 		return { status: 403, data: undefined };

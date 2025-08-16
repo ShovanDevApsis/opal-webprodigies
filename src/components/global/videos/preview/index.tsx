@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { getPreviewVideo } from "@/actions/workspace";
@@ -194,7 +195,10 @@ function VideoPreview({ videoId }: Props) {
 							/>
 						</TabsContent>
 						<TabsContent value="activity">
-							<Activity />
+							<Activity
+								author={responseData.User.firstName}
+								videoId={videoId}
+							/>
 						</TabsContent>
 					</Tabs>
 				</div>

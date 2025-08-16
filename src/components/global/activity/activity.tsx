@@ -1,8 +1,11 @@
 import React from "react";
 
-type Props = {};
+type Props = {
+	author: string;
+	videoId: string;
+};
 
-function Activity({}: Props) {
+function Activity({ author, videoId }: Props) {
 	return (
 		<main className="min-h-[40vh] text-white p-6 bg-neutral-800/80 shadow-2xl rounded-md">
 			Make canges to your content heres
