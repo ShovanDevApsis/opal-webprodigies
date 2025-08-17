@@ -2,7 +2,6 @@
 
 import { client } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
-import { useId } from "react";
 
 export const onAuthenticateUser = async () => {
 	try {
@@ -275,6 +274,34 @@ export const createCommentAndReply = async (
 				},
 			},
 		});
+
+		return newComment
+			? { status: 200, data: newComment }
+			: { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
+
+export const getUserProfile = async () => {
+	try {
+		const user = await currentUser();
+		if (!user) {
+			return { status: 403 };
+		}
+
+		const u = await client.user.findUnique({
+			where: {
+				clerkId: user.id,
+			},
+			select: {
+				id: true,
+				image: true,
+			},
+		});
+
+		return u ? { status: 200, data: u } : { status: 403, data: undefined };
 	} catch (error) {
 		console.log(error);
 		return { status: 403, data: undefined };
