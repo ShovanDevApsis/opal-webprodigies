@@ -5,17 +5,19 @@ import { useZodForm } from "./useZodForm";
 import { createCommentAndReply, getUserProfile } from "@/actions/user";
 
 export const useVideoComment = (videoId: string, commentId?: string) => {
-	const { data } = useQueryData(["user-profile"], getUserProfile);
+	const query = useQueryData(["user-profile"], getUserProfile);
 
-	const { data: user } = data as {
+	const user = query.data as {
 		status: number;
-		data: { id: string; image: string };
+		data: { id: string; image: string } | undefined;
 	};
 
 	const { mutate, isPending } = useMutationData(
 		["new-comment"],
-		(data: { comment: string }) =>
-			createCommentAndReply(user.id, data.comment, videoId, commentId),
+		(data: { comment: string }) => {
+			if (!user?.data?.id) throw new Error("User not loaded");
+			return createCommentAndReply(user.data.id, data.comment, videoId, commentId);
+		},
 		"video-comments",
 		() => reset()
 	);
