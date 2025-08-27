@@ -307,3 +307,34 @@ export const getUserProfile = async () => {
 		return { status: 403, data: undefined };
 	}
 };
+
+export const getVideoComments = async (id: string) => {
+	try {
+		const user = await currentUser();
+		if (!user) {
+			return { status: 403 };
+		}
+
+		const comment = await client.comment.findMany({
+			where: {
+				OR: [{ videoId: id }, { commentId: id }],
+				commentId: null,
+			},
+			include: {
+				reply: {
+					include: {
+						User: true,
+					},
+				},
+			},
+		});
+
+		if (comment && comment.length > 0) {
+			return { status: 200, data: comment };
+		}
+		return { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};

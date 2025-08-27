@@ -113,3 +113,46 @@ export type GetPreviewVideoResponse =
 			data?: undefined;
 			author?: undefined;
 	  };
+
+export type CommentRepliesProps = {
+	id: string;
+	comment: string;
+	createdAt: Date;
+	commentId: string | null;
+	userId: string | null;
+	videoId: string | null;
+	User: {
+		id: string;
+		email: string | null;
+		firstname: string | null;
+		lastname: string | null;
+		createdAt: Date;
+		clerkId: string;
+		image: string | null;
+		trial: boolean;
+		firstView: boolean | null;
+	};
+};
+
+export type VideoCommentsProps = {
+	data: {
+		User: {
+			id: string;
+			email: string | null;
+			firstname: string | null;
+			lastname: string | null;
+			createdAt: Date;
+			clerkId: string;
+			image: string | null;
+			trial: boolean;
+			firstView: boolean | null;
+		};
+		reply: CommentRepliesProps[];
+		id: string;
+		comment: string;
+		createdAt: Date;
+		commentId: string | null;
+		userId: string | null;
+		videoId: string | null;
+	}[];
+};
