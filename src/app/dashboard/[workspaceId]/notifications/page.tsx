@@ -5,7 +5,7 @@ import { getUserNotificatons } from "@/actions/user";
 import SkeletonLoader from "@/components/global/skeleton";
 import { useQueryData } from "@/hooks/useQueryData";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { User } from "lucide-react";
 
 function NotificationsPage() {

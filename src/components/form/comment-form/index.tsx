@@ -30,7 +30,7 @@ function CommentForm({ videoId, author, close, commentId }: Props) {
 			<Button
 				disabled={isPending}
 				className="cursor-pointer flex items-center justify-center absolute top-[1px] right-3 bg-transparent hover:bg-transparent"
-				variant="outline"
+				variant="ghost"
 				type="submit"
 			>
 				{isPending ? (

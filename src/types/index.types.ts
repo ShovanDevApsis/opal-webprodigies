@@ -134,25 +134,32 @@ export type CommentRepliesProps = {
 	};
 };
 
-export type VideoCommentsProps = {
-	data: {
-		User: {
-			id: string;
-			email: string | null;
-			firstname: string | null;
-			lastname: string | null;
-			createdAt: Date;
-			clerkId: string;
-			image: string | null;
-			trial: boolean;
-			firstView: boolean | null;
-		};
-		reply: CommentRepliesProps[];
-		id: string;
-		comment: string;
-		createdAt: Date;
-		commentId: string | null;
-		userId: string | null;
-		videoId: string | null;
-	}[];
-};
+export type VideoCommentsProps =
+	| {
+			status: 200;
+			data: {
+				User: {
+					id: string;
+					email: string | null;
+					firstname: string | null;
+					lastname: string | null;
+					createdAt: Date;
+					clerkId: string;
+					image: string | null;
+					trial: boolean;
+					firstView: boolean | null;
+				};
+				reply: CommentRepliesProps[];
+				id: string;
+				comment: string;
+				createdAt: Date;
+				commentId: string | null;
+				userId: string | null;
+				videoId: string | null;
+			}[];
+	  }
+	| {
+			status: 403;
+			data?: undefined;
+			author?: undefined;
+	  };
