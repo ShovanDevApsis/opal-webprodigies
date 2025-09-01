@@ -52,7 +52,14 @@ function CommentCard({ author, comment, reply, videoId, commentId, isReply }: Pr
 						<div className="mt-3 flex justify-end">
 							{!onReply ? (
 								<>
-									<Button className="bg-neutral-500 hover:bg-neutral-600">
+									<Button
+										className="bg-neutral-500 hover:bg-neutral-600 cursor-pointer"
+										onClick={() =>
+											setonReply(
+												true
+											)
+										}
+									>
 										Reply
 									</Button>
 								</>
