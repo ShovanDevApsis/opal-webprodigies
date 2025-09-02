@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { WORKSPACES } from "@/redux/slices/workspaces";
+import { SignOutButton } from "@clerk/nextjs";
 
 type Props = {
 	actionWorkspaceId: string;
@@ -234,6 +235,11 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 			</div>
 			<div className="md:block hidden w-[240px] overflow-x-hidden">
 				{SidebarContent}
+			</div>
+
+			{/* Log out btton */}
+			<div className="w-full flex items-center justify-center border border-neutral-700  rounded-xl cursor-pointer">
+				<SignOutButton />
 			</div>
 		</div>
 	);

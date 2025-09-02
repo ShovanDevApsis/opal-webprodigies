@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommentRepliesProps } from "@/types/index.types";
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -29,7 +30,7 @@ function CommentCard({ author, comment, reply, videoId, commentId, isReply }: Pr
 		>
 			<CardContent>
 				<div className="flex gap-x-2 items-center">
-					<Avatar>
+					<Avatar className="w-6 h-6">
 						<AvatarImage
 							src={author.image || ""}
 							alt="author"
@@ -83,6 +84,29 @@ function CommentCard({ author, comment, reply, videoId, commentId, isReply }: Pr
 									/>
 								</>
 							)}
+						</div>
+					</>
+				)}
+				{reply?.length > 0 && (
+					<>
+						<div className="flex flex-col">
+							{reply?.map((r: any) => (
+								<CommentCard
+									author={{
+										firstname: r.User
+											.firstname,
+										lastname: r.User
+											.lastname,
+										image: r.User.image,
+									}}
+									key={r.id}
+									isReply
+									comment={r.comment}
+									commentId={r.commentId}
+									reply={[]}
+									videoId={videoId}
+								/>
+							))}
 						</div>
 					</>
 				)}

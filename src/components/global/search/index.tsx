@@ -28,7 +28,7 @@ const Search = ({ workspaceId }: Props) => {
 				placeholder="Search for user.."
 				type="text"
 			/>
-		
+
 			{isFetching ? (
 				<div className="flex flex-col gap-y-2">
 					<Skeleton className="w-full h-3 rounded-xl bg-neutral-700"></Skeleton>

@@ -147,6 +147,8 @@ export const searchUsers = async (query: string) => {
 			},
 		});
 
+		console.log(users, "in server")
+
 		return users ? { status: 200, data: users } : { status: 403, data: undefined };
 	} catch (error) {
 		console.log(error);
