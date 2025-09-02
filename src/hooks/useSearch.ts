@@ -37,7 +37,6 @@ export const useSearch = (key: string, type: "USER") => {
 		try {
 			if (type === "USER") {
 				const users = await searchUsers(data.queryKey[1] as string);
-				console.log(users, "fetched Users");
 
 				if (users.status === 200 && users.data) {
 					const normalizedUsers: UserData[] = users.data.map(

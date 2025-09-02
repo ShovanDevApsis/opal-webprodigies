@@ -121,16 +121,25 @@ export const searchUsers = async (query: string) => {
 					{
 						firstName: {
 							contains: query,
+							mode: "insensitive",
 						},
-						lastName: { contains: query },
-						email: { contains: query },
 					},
-				],
-				NOT: [
 					{
-						clerkId: user.id,
+						lastName: {
+							contains: query,
+							mode: "insensitive",
+						},
+					},
+					{
+						email: {
+							contains: query,
+							mode: "insensitive",
+						},
 					},
 				],
+				NOT: {
+					clerkId: user.id,
+				},
 			},
 
 			select: {
@@ -146,8 +155,6 @@ export const searchUsers = async (query: string) => {
 				image: true,
 			},
 		});
-
-		console.log(users, "in server")
 
 		return users ? { status: 200, data: users } : { status: 403, data: undefined };
 	} catch (error) {
