@@ -8,6 +8,7 @@ import { useSearch } from "@/hooks/useSearch";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Loader, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type Props = {
 	workspaceId: string;
@@ -16,8 +17,10 @@ type Props = {
 const Search = ({ workspaceId }: Props) => {
 	const { onSearchQuery, query, isFetching, onUsers } = useSearch("get-users", "USER");
 
-	// TO Do use mutation for inviting members
-	// const {} = useMutationData('invite-member', inviteMember)
+	const {} = useMutationData(
+		["invite-member"],
+		(data: { receiverId: string; email: string }) => inviteMembers()
+	);
 
 	return (
 		<div className="flex flex-col gap-y-5">
@@ -60,7 +63,7 @@ const Search = ({ workspaceId }: Props) => {
 												</Avatar>
 												<span className="text-xs font-semibold">{`${user.firstName} ${user.lastName}`}</span>
 											</div>
-											<p className="text-xs font-semibold ml-10 mt-2">
+											<p className="text-xs font-semibold text-black ml-10 mt-2 border border-neutral-300 bg-white rounded-xl flex items-center justify-center">
 												{
 													user
 														.subscriptions
@@ -69,12 +72,12 @@ const Search = ({ workspaceId }: Props) => {
 											</p>
 										</div>
 
-										<div className="bg-white px-3 py-1 rounded flex gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
+										<Button className="bg-white px-3 py-1 rounded flex gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
 											<Loader className="animate-spin text-black h-4 w-4"></Loader>
 											<span className="text-black text-xs font-semibold">
 												Invite
 											</span>
-										</div>
+										</Button>
 									</div>
 								);
 							})}

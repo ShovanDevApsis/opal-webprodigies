@@ -2,6 +2,56 @@
 
 import { client } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
+import nodemailer from "nodemailer";
+
+const sendEmail = async ({
+	email,
+	sendTo,
+	subject,
+	text,
+	html,
+}: {
+	email: string;
+	sendTo: string;
+	subject: string;
+	text: string;
+	html?: string;
+}) => {
+	const SMTP_SERVER_HOST = "smtp.gmail.com";
+	const SMTP_SERVER_USERNAME = process.env.MIALER_EMAIL;
+	const SMTP_SERVER_PASSWORD = process.env.MAILER_PASSWORD;
+
+	const transporter = nodemailer.createTransport({
+		service: "gmail",
+		host: SMTP_SERVER_HOST,
+		port: 465,
+		secure: true,
+		auth: {
+			user: SMTP_SERVER_USERNAME,
+			pass: SMTP_SERVER_PASSWORD,
+		},
+	});
+	try {
+		await transporter.verify();
+	} catch (error) {
+		console.error(
+			"Something Went Wrong",
+			SMTP_SERVER_USERNAME,
+			SMTP_SERVER_PASSWORD,
+			error
+		);
+		return;
+	}
+	const info = await transporter.sendMail({
+		from: email,
+		to: sendTo,
+		subject: subject,
+		text: text,
+		html: html ? html : "",
+	});
+
+	return info;
+};
 
 export const onAuthenticateUser = async () => {
 	try {
@@ -345,6 +395,72 @@ export const getVideoComments = async (id: string) => {
 			return { status: 200, data: comment };
 		}
 		return { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
+
+export const inviteMembers = async (workspaceId: string, receiverId: string, email: string) => {
+	try {
+		const user = await currentUser();
+		if (!user) {
+			return { status: 403 };
+		}
+
+		const senderInfo = await client.user.findUnique({
+			where: {
+				clerkId: user.id,
+			},
+			select: {
+				id: true,
+				firstName: true,
+				lastName: true,
+			},
+		});
+
+		if (senderInfo?.id) {
+			const workspace = await client.workspace.findUnique({
+				where: {
+					id: workspaceId,
+				},
+				select: {
+					id: true,
+					name: true,
+				},
+			});
+
+			if (workspace) {
+				const invitation = await client.invite.create({
+					data: {
+						content: `Hello ${user.firstName}, you have been invited by ${senderInfo.firstName} ${senderInfo.lastName} to ${workspace.name}`,
+						senderId: senderInfo.id,
+						receiverId: receiverId,
+						workspaceId: workspaceId,
+					},
+					select: {
+						id: true,
+					},
+				});
+
+				await client.user.update({
+					where: {
+						clerkId: user.id,
+					},
+					data: {
+						notifications: {
+							create: {
+								content: `${user.firstName}, you have been invited by ${senderInfo.firstName} ${senderInfo.lastName} to ${workspace.name}`,
+							},
+						},
+					},
+				});
+
+				if(invitation){
+					
+				}
+			}
+		}
 	} catch (error) {
 		console.log(error);
 		return { status: 403, data: undefined };
