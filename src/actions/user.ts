@@ -4,50 +4,27 @@ import { client } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import nodemailer from "nodemailer";
 
-const sendEmail = async ({
-	email,
-	sendTo,
-	subject,
-	text,
-	html,
-}: {
-	email: string;
-	sendTo: string;
-	subject: string;
-	text: string;
-	html?: string;
-}) => {
-	const SMTP_SERVER_HOST = "smtp.gmail.com";
-	const SMTP_SERVER_USERNAME = process.env.MIALER_EMAIL;
-	const SMTP_SERVER_PASSWORD = process.env.MAILER_PASSWORD;
-
+const sendEmail = async (
+	from: string,
+	to: string,
+	subject: string,
+	text: string,
+	html?: string
+) => {
 	const transporter = nodemailer.createTransport({
 		service: "gmail",
-		host: SMTP_SERVER_HOST,
-		port: 465,
-		secure: true,
 		auth: {
-			user: SMTP_SERVER_USERNAME,
-			pass: SMTP_SERVER_PASSWORD,
+			user: process.env.MAILER_EMAIL,
+			pass: process.env.MAILER_PASSWORD,
 		},
 	});
-	try {
-		await transporter.verify();
-	} catch (error) {
-		console.error(
-			"Something Went Wrong",
-			SMTP_SERVER_USERNAME,
-			SMTP_SERVER_PASSWORD,
-			error
-		);
-		return;
-	}
+
 	const info = await transporter.sendMail({
-		from: email,
-		to: sendTo,
-		subject: subject,
-		text: text,
-		html: html ? html : "",
+		from,
+		to,
+		subject,
+		text,
+		html: html ?? "",
 	});
 
 	return info;
@@ -456,11 +433,26 @@ export const inviteMembers = async (workspaceId: string, receiverId: string, ema
 					},
 				});
 
-				if(invitation){
-					
+				if (invitation) {
+					const info = await sendEmail(
+						"shovonmazumder61@gmail.com",
+						email,
+						"You got an invitation",
+						"Go in to the link below to get invitation",
+						`<a href="${process.env.NEXT_PUBLIC_HOST_URL}/invite/${invitation.id}">Accept Invite</a>`
+					);
+					if (info) {
+						return { status: 200, data: "Invitation Sent" };
+					} else {
+					}
+					return { status: 400, data: "Invitation failed!" };
 				}
+			} else {
+				return { status: 404, data: "Workspace not found~" };
 			}
 		}
+
+		return { status: 404, data: "Recipient not found!" };
 	} catch (error) {
 		console.log(error);
 		return { status: 403, data: undefined };

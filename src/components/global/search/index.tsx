@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -9,6 +8,7 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Loader, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { inviteMembers } from "@/actions/user";
 
 type Props = {
 	workspaceId: string;
@@ -17,9 +17,10 @@ type Props = {
 const Search = ({ workspaceId }: Props) => {
 	const { onSearchQuery, query, isFetching, onUsers } = useSearch("get-users", "USER");
 
-	const {} = useMutationData(
+	const { isPending, mutate } = useMutationData(
 		["invite-member"],
-		(data: { receiverId: string; email: string }) => inviteMembers()
+		(data: { receiverId: string; email: string }) =>
+			inviteMembers(workspaceId, data.receiverId, data.email)
 	);
 
 	return (
@@ -72,8 +73,23 @@ const Search = ({ workspaceId }: Props) => {
 											</p>
 										</div>
 
-										<Button className="bg-white px-3 py-1 rounded flex gap-2 cursor-pointer hover:bg-gray-200 transition-colors">
-											<Loader className="animate-spin text-black h-4 w-4"></Loader>
+										<Button
+											disabled={
+												isPending
+											}
+											className="bg-white px-3 py-1 rounded flex gap-2 cursor-pointer hover:bg-gray-200 transition-colors"
+											onClick={() =>
+												mutate(
+													{
+														receiverId: user.id,
+														email: user.email,
+													}
+												)
+											}
+										>
+											{isPending && (
+												<Loader className="animate-spin text-black h-4 w-4"></Loader>
+											)}
 											<span className="text-black text-xs font-semibold">
 												Invite
 											</span>
