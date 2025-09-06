@@ -458,3 +458,65 @@ export const inviteMembers = async (workspaceId: string, receiverId: string, ema
 		return { status: 403, data: undefined };
 	}
 };
+
+export const acceptInvite = async (inviteId: string) => {
+	try {
+		const user = await currentUser();
+		if (!user) {
+			return { status: 403 };
+		}
+
+		const invitation = await client.invite.findUnique({
+			where: {
+				id: inviteId,
+			},
+			select: {
+				workspaceId: true,
+				receiver: {
+					select: {
+						clerkId: true,
+					},
+				},
+			},
+		});
+
+		if (user.id !== invitation?.receiver?.clerkId) {
+			return { status: 403, data: "Invalid User" };
+		}
+
+		const acceptInvitation = client.invite.update({
+			where: {
+				id: inviteId,
+			},
+			data: {
+				accepted: true,
+			},
+		});
+
+		const updateMember = client.user.update({
+			where: {
+				id: invitation.receiver.clerkId,
+			},
+			data: {
+				members: {
+					create: {
+						workspaceId: invitation.workspaceId,
+					},
+				},
+			},
+		});
+
+		const membersTransaction = await client.$transaction([
+			acceptInvitation,
+			updateMember,
+		]);
+
+		if (membersTransaction) {
+			return { status: 200, data: "Success" };
+		}
+		return { status: 404, data: "Failed!" };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
