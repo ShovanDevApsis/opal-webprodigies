@@ -91,18 +91,18 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 									<SelectItem
 										value={
 											member
-												.workspace
+												.WorkSpace
 												.id
 										}
 										key={
 											member
-												.workspace
+												.WorkSpace
 												.id
 										}
 									>
 										{
 											member
-												.workspace
+												.WorkSpace
 												.name
 										}
 									</SelectItem>
@@ -189,16 +189,16 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 							<>
 								<SidebarItem
 									title={
-										member.workspace
+										member.WorkSpace
 											.name
 									}
 									selected={
 										pathname ===
-										`/dashboard/${member.workspace.id}`
+										`/dashboard/${member.WorkSpace.id}`
 									}
-									href={`/dashboard/${member.workspace.id}`}
+									href={`/dashboard/${member.WorkSpace.id}`}
 									icon={<FolderOpen />}
-									key={member.workspace.name}
+									key={member.WorkSpace.name}
 								/>
 							</>
 						))}

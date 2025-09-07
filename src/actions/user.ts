@@ -481,7 +481,7 @@ export const acceptInvite = async (inviteId: string) => {
 		});
 
 		if (user.id !== invitation?.receiver?.clerkId) {
-			return { status: 403, data: "Invalid User" };
+			return { status: 404, data: "Invalid User" };
 		}
 
 		const acceptInvitation = client.invite.update({
@@ -495,7 +495,7 @@ export const acceptInvite = async (inviteId: string) => {
 
 		const updateMember = client.user.update({
 			where: {
-				id: invitation.receiver.clerkId,
+				clerkId: user.id,
 			},
 			data: {
 				members: {
