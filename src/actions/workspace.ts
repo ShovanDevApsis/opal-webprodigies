@@ -2,6 +2,33 @@
 
 import { client } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
+import nodemailer from "nodemailer";
+
+const sendEmail = async (
+	from: string,
+	to: string,
+	subject: string,
+	text: string,
+	html?: string
+) => {
+	const transporter = nodemailer.createTransport({
+		service: "gmail",
+		auth: {
+			user: process.env.MAILER_EMAIL,
+			pass: process.env.MAILER_PASSWORD,
+		},
+	});
+
+	const info = await transporter.sendMail({
+		from,
+		to,
+		subject,
+		text,
+		html: html ?? "",
+	});
+
+	return info;
+};
 
 export const verifyAccessToWorkspace = async (workspaceID: string) => {
 	try {
@@ -413,6 +440,81 @@ export const getPreviewVideo = async (videoId: string) => {
 		}
 
 		return { status: 403, data: undefined };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};
+
+export const sendEmailForFirstView = async (videoId: string) => {
+	try {
+		const user = await currentUser();
+		if (!user) return { status: 403 };
+
+		const firstViewSettings = await client.user.findUnique({
+			where: {
+				clerkId: user.id,
+			},
+			select: {
+				firstView: true,
+			},
+		});
+
+		if (!firstViewSettings?.firstView) return;
+
+		const video = await client.video.findUnique({
+			where: {
+				id: videoId,
+			},
+			select: {
+				title: true,
+				views: true,
+				User: {
+					select: {
+						email: true,
+					},
+				},
+			},
+		});
+
+		if (video && video.views === 0) {
+			await client.video.update({
+				where: {
+					id: videoId,
+				},
+				data: {
+					views: video.views + 1,
+				},
+			});
+		}
+
+		if (!video) return;
+
+		const info = await sendEmail(
+			"shovonmazumder61@gmail.com",
+			video?.User.email,
+			"You got a viewer",
+			`Your video ${video.title} just got its first viewer!`
+		);
+
+		if (info) {
+			const notification = await client.user.update({
+				where: {
+					clerkId: user.id,
+				},
+				data: {
+					notifications: {
+						create: {
+							content: `Your video ${video.title} just got its first viewer!`,
+						},
+					},
+				},
+			});
+
+			if (notification) return { status: 200 };
+		} else {
+			return { status: 400, data: "failed to sending email!" };
+		}
 	} catch (error) {
 		console.log(error);
 		return { status: 403, data: undefined };

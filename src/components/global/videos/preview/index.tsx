@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { getPreviewVideo } from "@/actions/workspace";
+import { getPreviewVideo, sendEmailForFirstView } from "@/actions/workspace";
 import { useQueryData } from "@/hooks/useQueryData";
 import { GetPreviewVideoResponse } from "@/types/index.types";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SkeletonLoader from "../../skeleton";
 import CopyToClipBoard from "../copy-clipboard";
 import RichLink from "../rich-link";
@@ -38,14 +38,14 @@ const getTimeAgo = (createdAt: string | Date): string => {
 };
 
 function VideoPreview({ videoId }: Props) {
-	// To Do Setup notify first view
-	// To Do Setup activity
 	const [activeTab, setactiveTab] = useState("ai");
 
 	const router = useRouter();
 	const { data, isFetching } = useQueryData(["preview-video"], () =>
 		getPreviewVideo(videoId)
 	);
+
+	const notifyFirstView = async () => await sendEmailForFirstView(videoId);
 
 	if (isFetching) {
 		return <SkeletonLoader rows={12} />;
@@ -58,6 +58,16 @@ function VideoPreview({ videoId }: Props) {
 	}
 
 	const daysAgo = getTimeAgo(responseData.createdAt);
+
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	useEffect(() => {
+		if (responseData?.views === 0) {
+			notifyFirstView();
+		}
+		return () => {
+			notifyFirstView();
+		};
+	}, [responseData?.views]);
 
 	return (
 		<div className="p-3 lg:px-5 lg:py-2 overflow-y-auto">

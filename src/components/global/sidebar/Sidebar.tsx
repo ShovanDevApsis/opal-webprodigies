@@ -60,7 +60,7 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 
 	const handleChange = (val: string) => {
 		router.push(`/dashboard/${val}`);
-	};
+	};	
 
 	const SidebarContent = (
 		<div className="bg-[#111111] flex-none relative p-4 h-full w-[240px] flex flex-col gap-4 items-center overflow-hidden">
@@ -90,19 +90,17 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 								{user.members.map((member) => (
 									<SelectItem
 										value={
-											member
-												.WorkSpace
-												.id
+											member.Workspace.id
 										}
 										key={
 											member
-												.WorkSpace
+												.Workspace
 												.id
 										}
 									>
 										{
 											member
-												.WorkSpace
+												.Workspace
 												.name
 										}
 									</SelectItem>
@@ -189,16 +187,16 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 							<>
 								<SidebarItem
 									title={
-										member.WorkSpace
+										member.Workspace
 											.name
 									}
 									selected={
 										pathname ===
-										`/dashboard/${member.WorkSpace.id}`
+										`/dashboard/${member.Workspace.id}`
 									}
-									href={`/dashboard/${member.WorkSpace.id}`}
+									href={`/dashboard/${member.Workspace.id}`}
 									icon={<FolderOpen />}
-									key={member.WorkSpace.name}
+									key={member.Workspace.name}
 								/>
 							</>
 						))}

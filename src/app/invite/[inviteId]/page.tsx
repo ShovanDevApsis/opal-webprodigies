@@ -11,7 +11,6 @@ type Props = {
 async function page({ params: { inviteId } }: Props) {
 	const invite = await acceptInvite(inviteId);
 
-	console.log(invite, "invite =============");
 
 	if (invite.status !== 200) {
 		return (

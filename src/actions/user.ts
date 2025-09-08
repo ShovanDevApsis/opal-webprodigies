@@ -444,8 +444,8 @@ export const inviteMembers = async (workspaceId: string, receiverId: string, ema
 					if (info) {
 						return { status: 200, data: "Invitation Sent" };
 					} else {
+						return { status: 400, data: "Invitation failed!" };
 					}
-					return { status: 400, data: "Invitation failed!" };
 				}
 			} else {
 				return { status: 404, data: "Workspace not found~" };
