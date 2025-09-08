@@ -520,3 +520,33 @@ export const acceptInvite = async (inviteId: string) => {
 		return { status: 403, data: undefined };
 	}
 };
+
+export const updateToPro = async () => {
+	try {
+		const user = await currentUser();
+		if (!user) {
+			return { status: 403 };
+		}
+
+		const update = await client.user.update({
+			where: {
+				clerkId: user.id,
+			},
+			data: {
+				subscriptions: {
+					update: {
+						plan: "PRO",
+					},
+				},
+			},
+		});
+
+		if (update) {
+			return { status: 200, data: "Success" };
+		}
+		return { status: 404, data: "Failed!" };
+	} catch (error) {
+		console.log(error);
+		return { status: 403, data: undefined };
+	}
+};

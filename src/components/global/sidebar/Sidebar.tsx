@@ -21,7 +21,7 @@ import { MENU_ITEMS } from "@/constants";
 import SidebarItem from "./sidebar-item";
 import { getUserNotificatons } from "@/actions/user";
 
-import { FolderOpen, Video, PlusCircle, Loader, Menu } from "lucide-react";
+import { FolderOpen, Video, PlusCircle, Menu } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import GlobalCard from "../global-card";
 import { Button } from "@/components/ui/button";
@@ -29,6 +29,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { WORKSPACES } from "@/redux/slices/workspaces";
 import { SignOutButton } from "@clerk/nextjs";
+import PaymentButton from "../payment-button";
 
 type Props = {
 	actionWorkspaceId: string;
@@ -60,7 +61,7 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 
 	const handleChange = (val: string) => {
 		router.push(`/dashboard/${val}`);
-	};	
+	};
 
 	const SidebarContent = (
 		<div className="bg-[#111111] flex-none relative p-4 h-full w-[240px] flex flex-col gap-4 items-center overflow-hidden">
@@ -90,7 +91,9 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 								{user.members.map((member) => (
 									<SelectItem
 										value={
-											member.Workspace.id
+											member
+												.Workspace
+												.id
 										}
 										key={
 											member
@@ -206,13 +209,9 @@ const SidebarMain = ({ actionWorkspaceId }: Props) => {
 			{user.subscriptions?.plan === "FREE" && (
 				<GlobalCard
 					title="Upgrade to PRO"
+					footer={<PaymentButton />}
 					descripttion="Unlock AI features like transcription, AI summary , and more."
-				>
-					<Button className="w-full" variant={"outline"}>
-						<Loader />
-						Upgrade
-					</Button>
-				</GlobalCard>
+				></GlobalCard>
 			)}
 		</div>
 	);
